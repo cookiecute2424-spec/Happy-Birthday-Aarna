@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    touch-action: manipulation; /* Prevents mobile browsers from triggering zoom gestures on taps */
 }
 
 body {
@@ -46,7 +47,7 @@ h1 { color: #ff4081 !important; font-size: 2.1rem; margin-bottom: 5px; }
 h2 { color: #ff69b4 !important; font-size: 1.4rem; margin-bottom: 10px; }
 .subtext { font-size: 0.95rem; color: #7b68ee; font-weight: 500; margin-bottom: 15px; }
 
-/* PASSWORD PANEL SETUP */
+/* PASSWORD DISPLAY SCREEN */
 #passwordDisplay {
     color: #ff4081 !important;
     font-size: 2.2rem !important;
@@ -63,14 +64,6 @@ h2 { color: #ff69b4 !important; font-size: 1.4rem; margin-bottom: 10px; }
     width: 90% !important;
 }
 
-#keypad {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 12px !important;
-    max-width: 290px !important;
-    margin: 0 auto 20px auto !important;
-}
-
 .key {
     background: #ffffff !important;
     color: #ff5599 !important;
@@ -80,7 +73,13 @@ h2 { color: #ff69b4 !important; font-size: 1.4rem; margin-bottom: 10px; }
     font-size: 1.4rem !important;
     font-weight: bold !important;
     cursor: pointer !important;
+    pointer-events: auto !important;
     box-shadow: 0 4px 8px rgba(255,182,193,0.3) !important;
+    user-select: none !important;
+}
+
+.key:active {
+    background: #ffedf4 !important;
 }
 
 .clr-bg { background: #ff758c !important; color: white !important; }
@@ -99,7 +98,7 @@ h2 { color: #ff69b4 !important; font-size: 1.4rem; margin-bottom: 10px; }
     box-shadow: 0 5px 15px rgba(255,65,108,0.4) !important;
 }
 
-/* INTERACTIVE STAGED CAKE */
+/* INTERACTIVE CAKE SETUP */
 .cake-container {
     margin: 25px auto;
     cursor: pointer;
@@ -110,7 +109,7 @@ h2 { color: #ff69b4 !important; font-size: 1.4rem; margin-bottom: 10px; }
 .flame.lit { animation: flicker 0.6s infinite alternate; }
 .cake-graphic { font-size: 4.5rem; transition: transform 0.3s ease; }
 
-/* CONFETTI LAYER FLOW */
+/* CONFETTI SYSTEM */
 #confettiContainer {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     pointer-events: none; z-index: 99999; overflow: hidden;
@@ -121,7 +120,7 @@ h2 { color: #ff69b4 !important; font-size: 1.4rem; margin-bottom: 10px; }
     animation: fall linear forwards;
 }
 
-/* DYNAMIC TIMELINE MESSAGES */
+/* TIMELINE REVEAL MESSAGES */
 #dynamicMessageContainer { margin: 20px 0; min-height: 150px; }
 .cute-reveal-msg {
     padding: 12px !important; margin: 12px 0 !important;
@@ -135,7 +134,7 @@ h2 { color: #ff69b4 !important; font-size: 1.4rem; margin-bottom: 10px; }
 }
 .cute-reveal-msg.visible { opacity: 1; transform: translateY(0); }
 
-/* HAMPER PHOTOS */
+/* HAMPER LAYOUT STYLES */
 .photo-container-hamper {
     display: flex !important; flex-wrap: wrap !important;
     justify-content: center !important; gap: 15px !important; margin: 25px 0 !important;
@@ -170,7 +169,7 @@ h2 { color: #ff69b4 !important; font-size: 1.4rem; margin-bottom: 10px; }
 .final-card-btn.unlocked p { color: #6a1b9a !important; font-weight: 500; }
 .final-icon { font-size: 2rem; }
 
-/* MODALS */
+/* POPUP MODAL CONTAINER */
 .modal {
     position: fixed; top:0; left:0; width:100%; height:100%;
     background: rgba(255, 182, 193, 0.65) !important; backdrop-filter: blur(4px);
@@ -184,7 +183,7 @@ h2 { color: #ff69b4 !important; font-size: 1.4rem; margin-bottom: 10px; }
 .modal-decorations { font-size: 1.8rem; margin-bottom: 10px; }
 #wrongPassword { color: #ff3333; font-weight: bold; margin-top: 10px; }
 
-/* STRICT RE-ENGINEERED ELEMENT-SPECIFIC ZOOM TRANSITIONS */
+/* STAGED SELECTIVE MICRO SCALE ZOOM CLASSES FOR TARGETED ITEMS ONLY */
 .zoom-target {
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease !important;
 }
