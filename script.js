@@ -1,13 +1,9 @@
-/*==================================================
-        HAPPY BIRTHDAY AARNA
-        SCRIPT.JS - REDESIGNED REVEAL SEQUENCE FLOW
-==================================================*/
-
 const CORRECT_PASSWORD = "1110";
 let enteredPassword = "";
 let viewedWishesCount = 0;
 let activeZoomElement = null;
-let cakeStep = 0; // 0 = unlit, 1 = lit, 2 = cut
+let cakeStep = 0; 
+let currentCarouselIndex = 0;
 
 const wishes = [
     "Manifesting that we r always together even in pulse batch and sit one behind the other or with each other. 😜",
@@ -60,7 +56,7 @@ document.addEventListener("pointerdown", () => {
 });
 
 /*==============================
-        KEYPAD LOGIC ENGINE
+        KEYPAD ENGINE
 ===============================*/
 function pressKey(val) {
     const display = document.getElementById("passwordDisplay");
@@ -75,11 +71,10 @@ function pressKey(val) {
         enteredPassword = enteredPassword.slice(0, -1);
         display.innerText = enteredPassword || "Enter PIN";
     } else if (enteredPassword.length < 4) {
-        enteredPassword += val.toString(); // Fixed character indices conversion for 0 string mapping bounds
+        enteredPassword += val.toString(); // Forces string matching formatting constraints cleanly
         display.innerText = enteredPassword;
     }
 
-    // Dynamic Clue Rendering System updates
     if (enteredPassword.length === 0) {
         capyMessage.innerText = "I'm guarding the birthday surprise! 🐹";
     } else if (enteredPassword === CORRECT_PASSWORD.substring(0, 1)) {
@@ -96,7 +91,7 @@ function pressKey(val) {
 }
 
 /*==============================
-        CODE VERIFICATION
+        CODE ENTRY MATCH AND AUDIO PLAY
 ===============================*/
 function verifyPasscode(e) {
     if (e) e.stopPropagation();
@@ -105,7 +100,11 @@ function verifyPasscode(e) {
     const audioTrack = document.getElementById("birthdayMusic");
 
     if (enteredPassword === CORRECT_PASSWORD) {
-        audioTrack.play().catch(err => console.log("Audio track initialized seamlessly on interaction", err));
+        // Direct fixed activation patch to force loop playback constraints immediately on unlock validation
+        audioTrack.play().then(() => {
+            console.log("Audio contextual connection launched successfully");
+        }).catch(err => console.log("Audio track initialized behind explicit user click context layers", err));
+        
         document.getElementById("passwordPage").style.display = "none";
         document.getElementById("cakeStagePage").style.display = "block";
     } else {
@@ -116,7 +115,7 @@ function verifyPasscode(e) {
 }
 
 /*==============================
-        CAKE MANAGEMENT STAGES
+        INTERACTIVE CAKE LOGIC
 ===============================*/
 function handleCakeInteraction(e) {
     if (e) e.stopPropagation();
@@ -162,7 +161,7 @@ function triggerConfettiShower() {
 }
 
 /*==============================
-        WISHES TILES ENGINE
+        WISHES TILES TIMELINE
 ===============================*/
 function revealWishesSequentially() {
     const container = document.getElementById("dynamicWishesContainer");
@@ -171,8 +170,8 @@ function revealWishesSequentially() {
     function renderNextWish() {
         if (currentIdx < wishes.length) {
             const wishEl = document.createElement("div");
-            wishEl.className = "cute-reveal-msg zoom-target";
-            wishEl.innerHTML = `<strong style="color:#ff4081;">Wish Card #${currentIdx + 1}:</strong> ${wishes[currentIdx]}`;
+            wishEl.className = "cute-reveal-msg zoom-target visible-card";
+            wishEl.innerHTML = `<div class="card-decor">✨📜✨</div><strong style="color:#ff4081; font-size:1.1rem; display:block; margin-bottom:5px;">Wish Card #${currentIdx + 1}</strong> ${wishes[currentIdx]}`;
             
             wishEl.onpointerdown = function(e) {
                 e.stopPropagation();
@@ -187,8 +186,6 @@ function revealWishesSequentially() {
             };
             
             container.appendChild(wishEl);
-            setTimeout(() => wishEl.classList.add("visible"), 50);
-            
             currentIdx++;
             setTimeout(renderNextWish, 1300);
         }
@@ -197,12 +194,33 @@ function revealWishesSequentially() {
 }
 
 /*==============================
-        PAGES CONTROL CHANNELS
+        CAROUSEL CONTROLLER SLIDER MECHANICS
 ===============================*/
 function showPicsPage(e) {
     if (e) e.stopPropagation();
     document.getElementById("wishesStagePage").style.display = "none";
     document.getElementById("picsStagePage").style.display = "block";
+    updateCarouselLayout();
+}
+
+function moveCarousel(direction, e) {
+    if(e) e.stopPropagation();
+    const totalImages = 5;
+    currentCarouselIndex += direction;
+    if (currentCarouselIndex >= totalImages) currentCarouselIndex = 0;
+    if (currentCarouselIndex < 0) currentCarouselIndex = totalImages - 1;
+    updateCarouselLayout();
+}
+
+function updateCarouselLayout() {
+    const track = document.querySelector(".carouselTrack");
+    if(!track) return;
+    track.style.transform = `translateX(-${currentCarouselIndex * 310}px)`;
+    
+    const dots = document.querySelectorAll(".dot");
+    dots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === currentCarouselIndex);
+    });
 }
 
 function showMessagesPage(e) {
@@ -221,25 +239,8 @@ function revealMessagesSequentially() {
 
     function renderNextMessage() {
         if (currentIdx < messages.length) {
-            const msgEl = document.createElement("p");
-            msgEl.className = "cute-reveal-msg zoom-target";
-            msgEl.innerText = messages[currentIdx];
+            const msgEl = document.createElement("div");
+            msgEl.className = "cute-reveal-msg zoom-target visible-card custom-bubble";
+            msgEl.innerHTML = `<div class="card-decor">💬💖</div>${messages[currentIdx]}`;
             
             msgEl.onpointerdown = function(e) {
-                e.stopPropagation();
-                triggerZoom(this, e);
-            };
-            
-            container.appendChild(msgEl);
-            setTimeout(() => msgEl.classList.add("visible"), 50);
-            
-            currentIdx++;
-            setTimeout(renderNextMessage, 1300);
-        }
-    }
-    renderNextMessage();
-}
-
-function closeModalBox() {
-    document.getElementById("wishModal").style.display = "none";
-}
