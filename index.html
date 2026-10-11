@@ -2,217 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Birthday Aarna</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://googleapis.com" rel="stylesheet">
-    <style>
-        /* ALL CSS IS INTEGRATED HERE TO PREVENT REPOSITORY BUILD FAILURES */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Fredoka', sans-serif !important;
-            background: linear-gradient(135deg, #ffdeeb 0%, #fed6e3 50%, #fbc2eb 100%) !important;
-            color: #4a4a4a !important;
-            padding: 20px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            min-height: 100vh !important;
-            overflow-x: hidden;
-        }
-
-        .stars-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.6) 1px, transparent 1px),
-                              radial-gradient(circle at 75% 60%, rgba(255,255,255,0.6) 2px, transparent 2px);
-            background-size: 100px 100px;
-        }
-
-        section {
-            width: 100% !important;
-            max-width: 420px !important;
-            position: relative;
-            z-index: 10;
-        }
-
-        .kawaiiCard {
-            background: rgba(255, 255, 255, 0.94) !important;
-            border-radius: 24px !important;
-            padding: 30px 20px !important;
-            box-shadow: 0 12px 35px rgba(255, 105, 180, 0.25) !important;
-            border: 3px solid #ff69b4 !important;
-            margin-top: 15px !important;
-            text-align: center;
-        }
-
-        h1 { color: #ff4081 !important; font-size: 2.1rem; margin-bottom: 5px; }
-        h2 { color: #ff69b4 !important; font-size: 1.4rem; margin-bottom: 10px; }
-        .subtext { font-size: 0.95rem; color: #7b68ee; font-weight: 500; margin-bottom: 15px; }
-
-        #passwordDisplay {
-            color: #ff4081 !important;
-            font-size: 2.2rem !important;
-            font-weight: bold !important;
-            letter-spacing: 4px !important;
-            margin: 20px auto !important;
-            min-height: 60px !important;
-            background: #fff0f5 !important;
-            border-radius: 16px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            border: 3px dashed #ffb6c1 !important;
-            width: 90% !important;
-        }
-
-        #keypad {
-            display: grid !important;
-            grid-template-columns: repeat(3, 1fr) !important;
-            gap: 12px !important;
-            max-width: 290px !important;
-            margin: 0 auto 20px auto !important;
-        }
-
-        .key {
-            background: #ffffff !important;
-            color: #ff5599 !important;
-            border: 2px solid #ffdae9 !important;
-            border-radius: 18px !important;
-            padding: 16px 0 !important;
-            font-size: 1.4rem !important;
-            font-weight: bold !important;
-            cursor: pointer !important;
-            box-shadow: 0 4px 8px rgba(255,182,193,0.3) !important;
-        }
-
-        .clr-bg { background: #ff758c !important; color: white !important; }
-        .del-bg { background: #afb3c2 !important; color: white !important; }
-
-        .actionBtn {
-            background: linear-gradient(45deg, #ff416c, #ff4b2b) !important;
-            color: white !important;
-            border: none !important;
-            padding: 15px 32px !important;
-            font-size: 1.2rem !important;
-            font-weight: bold !important;
-            border-radius: 50px !important;
-            cursor: pointer !important;
-            width: 90% !important;
-            box-shadow: 0 5px 15px rgba(255,65,108,0.4) !important;
-        }
-
-        .cake-container { margin: 25px auto; cursor: pointer; display: inline-block; }
-        .candles-row { font-size: 1.8rem; min-height: 35px; }
-        .flame { display: inline-block; margin: 0 5px; }
-        .flame.lit { animation: flicker 0.6s infinite alternate; }
-        .cake-graphic { font-size: 4.5rem; }
-
-        #confettiContainer {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 99999; overflow: hidden;
-        }
-        .confetti-piece {
-            position: absolute; width: 10px; height: 10px;
-            border-radius: 50%; opacity: 0.8;
-            animation: fall linear forwards;
-        }
-
-        #dynamicMessageContainer { margin: 20px 0; min-height: 150px; }
-        .cute-reveal-msg {
-            padding: 12px !important; margin: 12px 0 !important;
-            background: #fff8fa !important; border-radius: 14px !important;
-            border-left: 5px solid #ff69b4 !important; text-align: left;
-            font-size: 0.98rem; font-weight: 500;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-            opacity: 0; transform: translateY(10px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-        .cute-reveal-msg.visible { opacity: 1; transform: translateY(0); }
-
-        .photo-container-hamper {
-            display: flex !important; flex-wrap: wrap !important;
-            justify-content: center !important; gap: 15px !important; margin: 25px 0 !important;
-        }
-        .photo-wrapper { position: relative; display: inline-block; }
-        .photo-wish-btn {
-            width: 130px !important; height: 130px !important;
-            border-radius: 20px !important; border: 4px solid #ffffff !important;
-            object-fit: cover !important; cursor: pointer;
-            box-shadow: 0 6px 14px rgba(255,105,180,0.2) !important;
-        }
-        .photo-wish-btn.viewed { border-color: #4CAF50 !important; }
-        .badge {
-            position: absolute; top: -5px; right: -5px;
-            background: #ff4081; color: white; font-size: 0.75rem; font-weight: bold;
-            width: 22px; height: 22px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; border: 2px solid white;
-            z-index: 5;
-        }
-
-        .final-card-btn {
-            background: #eaeaea !important; color: #999999 !important; padding: 22px !important;
-            border-radius: 20px !important; margin-top: 25px !important; cursor: not-allowed !important;
-            border: 3px dashed #bbbbbb !important;
-        }
-        .final-card-btn.unlocked {
-            background: linear-gradient(135deg, #fecfef 0%, #ff9a9e 100%) !important;
-            color: #fff !important; cursor: pointer !important; border: 3px solid #ffffff !important;
-            box-shadow: 0 8px 25px rgba(255,154,158,0.5) !important;
-        }
-
-        .modal {
-            position: fixed; top:0; left:0; width:100%; height:100%;
-            background: rgba(255, 182, 193, 0.65) !important; backdrop-filter: blur(4px);
-            display: flex; justify-content: center; align-items: center; z-index: 100000;
-        }
-        .modalPopup {
-            background: #ffffff; color: #4a4a4a; padding: 30px 20px; border-radius: 24px;
-            max-width: 85%; width: 340px; position: relative; text-align: center; border: 3px solid #ff69b4;
-        }
-        .modalCloseBtn { position: absolute; top: 10px; right: 18px; font-size: 28px; cursor: pointer; color: #ff69b4; font-weight: bold; }
-        
-        .zoom-target {
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease !important;
-        }
-        .zoom-active {
-            transform: scale(1.15) !important;
-            box-shadow: 0 15px 30px rgba(255, 64, 129, 0.3) !important;
-            z-index: 99999 !important;
-        }
-        .photo-wrapper.zoom-active { transform: scale(1.15) rotate(2deg) !important; }
-
-        @keyframes flicker {
-            0% { transform: scale(1) rotate(-2deg); opacity: 0.9; }
-            100% { transform: scale(1.1) rotate(2deg); opacity: 1; }
-        }
-        @keyframes fall {
-            0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
-        }
-    </style>
 </head>
 <body>
 
 <div class="stars-bg"></div>
 <div id="confettiContainer"></div>
 
-<!-- PASSWORD PAGE -->
+<!-- STEP 1: PASSWORD PAGE -->
 <section id="passwordPage">
     <div class="kawaiiCard pinkGlow">
         <div class="card-icon">🔒✨</div>
         <h1>Hii Aarna</h1>
         <h2>Happy Birthday</h2>
         <p class="subtext">Prove you're the birthday girl!!! Enter the PIN below 🎀</p>
+        
         <div id="passwordDisplay">Enter PIN</div>
-        <div id="keypad">
+
+        <!-- Inline styled grid panel to completely bypass old css overlaps -->
+        <div id="keypad" style="display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 12px !important; max-width: 290px !important; margin: 0 auto 20px auto !important; pointer-events: auto !important;">
             <button type="button" class="key" onclick="pressKey('1')">1</button>
             <button type="button" class="key" onclick="pressKey('2')">2</button>
             <button type="button" class="key" onclick="pressKey('3')">3</button>
@@ -225,3 +36,80 @@
             <button type="button" class="key system-key clr-bg" onclick="pressKey('CLR')">CLR</button>
             <button type="button" class="key" onclick="pressKey('0')">0</button>
             <button type="button" class="key system-key del-bg" onclick="pressKey('DEL')">⌫</button>
+        </div>
+
+        <p class="hint-text" id="hintTextDisplay">Hint: Bday Date</p>
+        <button type="button" id="unlockBtn" class="actionBtn" onclick="verifyPasscode(event)">Unlock Surprise ✨</button>
+        <p id="wrongPassword"></p>
+    </div>
+</section>
+
+<!-- STEP 2: CELEBRATION CAKE & LIGHTING CANDLES STAGE -->
+<section id="cakeStagePage" style="display:none;">
+    <div class="kawaiiCard pinkGlow">
+        <h1 class="gradient-title" id="cakeHeaderTitle">Light the Candles!!! 🕯️💖</h1>
+        <p class="subtext" id="cakeInstructions">Click the cake below to light the birthday candles!!!</p>
+        
+        <div class="cake-container" onclick="handleCakeInteraction(event)">
+            <div class="candles-row" id="candleFlames">
+                <span class="flame unlit">🕯️</span><span class="flame unlit">🕯️</span><span class="flame unlit">🕯️</span>
+            </div>
+            <div class="cake-graphic" id="cakeVisual">🎂✨</div>
+        </div>
+        
+        <p id="cakeStatusText" style="font-weight: bold; color: #ff4081; margin-top: 15px;"></p>
+    </div>
+</section>
+
+<!-- STEP 3: DYNAMIC MESSAGE TIMELINE STREAM -->
+<section id="messageTimelinePage" style="display:none;">
+    <div class="kawaiiCard pinkGlow">
+        <h1 class="gradient-title" style="margin-bottom: 20px;">For You Aarna 🎀</h1>
+        
+        <div id="dynamicMessageContainer"></div>
+
+        <button type="button" id="proceedToHamperBtn" class="actionBtn" style="display:none; margin-top: 20px;" onclick="showHamperPage(event)">Open My Hamper Box 🎁</button>
+    </div>
+</section>
+
+<!-- STEP 4 & 5: PHOTO MATRIX HAMPER & WISH FLOW -->
+<section id="hamperPage" style="display:none;">
+    <div class="kawaiiCard pinkGlow">
+        <div class="card-icon">🎁✨</div>
+        <h1 class="gradient-title">Birthday Hamper</h1>
+        <p class="subtext">Click on each picture to unlock my wishes for you!!! 🎀</p>
+
+        <div class="photo-container-hamper">
+            <div class="photo-wrapper zoom-target" onclick="triggerZoom(this, event)"><img src="images/photo1.jpg" class="photo-wish-btn" id="picBtn1" onclick="openWishBox(1, event)" alt="Wish 1"><span class="badge">1</span></div>
+            <div class="photo-wrapper zoom-target" onclick="triggerZoom(this, event)"><img src="images/photo2.jpg" class="photo-wish-btn" id="picBtn2" onclick="openWishBox(2, event)" alt="Wish 2"><span class="badge">2</span></div>
+            <div class="photo-wrapper zoom-target" onclick="triggerZoom(this, event)"><img src="images/photo3.jpg" class="photo-wish-btn" id="picBtn3" onclick="openWishBox(3, event)" alt="Wish 3"><span class="badge">3</span></div>
+            <div class="photo-wrapper zoom-target" onclick="triggerZoom(this, event)"><img src="images/photo4.jpg" class="photo-wish-btn" id="picBtn4" onclick="openWishBox(4, event)" alt="Wish 4"><span class="badge">4</span></div>
+            <div class="photo-wrapper zoom-target" onclick="triggerZoom(this, event)"><img src="images/photo5.jpg" class="photo-wish-btn" id="picBtn5" onclick="openWishBox(5, event)" alt="Wish 5"><span class="badge">5</span></div>
+        </div>
+
+        <div class="final-card-btn locked-state" id="finalGiftSlot" onclick="openFinalWishBox(event)">
+            <div class="final-icon">🌟</div>
+            <h3>Final Manifestation Card</h3>
+            <p id="finalSlotSubtext">Locked until you tap all photos 🔒</p>
+        </div>
+    </div>
+</section>
+
+<!-- SOUND SYSTEM TRACK -->
+<audio id="birthdayMusic" loop preload="auto">
+    <source src="music/birthday.mp3" type="audio/mpeg">
+</audio>
+
+<!-- DYNAMIC WISH POPUPS CONTAINER -->
+<div class="modal" id="wishModal" style="display:none;" onclick="closeModalBox()">
+    <div class="modalPopup zoom-target" onclick="event.stopPropagation(); triggerZoom(this, event);">
+        <span onclick="closeModalBox()" class="modalCloseBtn">&times;</span>
+        <div class="modal-decorations">🎉🧁🎈</div>
+        <h1 id="modalTitle">Wish</h1>
+        <p id="modalText"></p>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
