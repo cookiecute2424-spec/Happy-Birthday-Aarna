@@ -23,22 +23,16 @@ const messages = [
     "Thanks for always teaching me everything 1min before the exam. 🙏🏼🙏🏼"
 ];
 
-/*==============================
-        LOADING DISMISSAL
-===============================*/
 window.addEventListener("load", () => {
     const loadingScreen = document.getElementById("loadingScreen");
     if (loadingScreen) {
         setTimeout(() => {
             loadingScreen.style.opacity = "0";
             setTimeout(() => loadingScreen.style.display = "none", 500);
-        }, 1500);
+        }, 1200);
     }
 });
 
-/*==============================
-        MICRO SCALE ZOOMS
-===============================*/
 function triggerZoom(element, e) {
     if (e) e.stopPropagation();
     if (activeZoomElement && activeZoomElement !== element) {
@@ -55,9 +49,6 @@ document.addEventListener("pointerdown", () => {
     }
 });
 
-/*==============================
-        KEYPAD ENGINE
-===============================*/
 function pressKey(val) {
     const display = document.getElementById("passwordDisplay");
     const capyMessage = document.getElementById("capyMessage");
@@ -71,7 +62,7 @@ function pressKey(val) {
         enteredPassword = enteredPassword.slice(0, -1);
         display.innerText = enteredPassword || "Enter PIN";
     } else if (enteredPassword.length < 4) {
-        enteredPassword += val.toString(); // Forces string matching formatting constraints cleanly
+        enteredPassword += val.toString();
         display.innerText = enteredPassword;
     }
 
@@ -90,9 +81,6 @@ function pressKey(val) {
     }
 }
 
-/*==============================
-        CODE ENTRY MATCH AND AUDIO PLAY
-===============================*/
 function verifyPasscode(e) {
     if (e) e.stopPropagation();
     const errorText = document.getElementById("wrongPassword");
@@ -100,10 +88,9 @@ function verifyPasscode(e) {
     const audioTrack = document.getElementById("birthdayMusic");
 
     if (enteredPassword === CORRECT_PASSWORD) {
-        // Direct fixed activation patch to force loop playback constraints immediately on unlock validation
         audioTrack.play().then(() => {
-            console.log("Audio contextual connection launched successfully");
-        }).catch(err => console.log("Audio track initialized behind explicit user click context layers", err));
+            console.log("Audio pipeline loaded successfully");
+        }).catch(err => console.log("Autoplay restrictions active", err));
         
         document.getElementById("passwordPage").style.display = "none";
         document.getElementById("cakeStagePage").style.display = "block";
@@ -114,9 +101,6 @@ function verifyPasscode(e) {
     }
 }
 
-/*==============================
-        INTERACTIVE CAKE LOGIC
-===============================*/
 function handleCakeInteraction(e) {
     if (e) e.stopPropagation();
     const statusText = document.getElementById("cakeStatusText");
@@ -125,7 +109,7 @@ function handleCakeInteraction(e) {
     if (cakeStep === 0) {
         flames.innerHTML = '<span class="flame lit">🔥</span><span class="flame lit">🔥</span><span class="flame lit">🔥</span>';
         document.getElementById("cakeHeaderTitle").innerText = "Cut the Cake!!! 🍰✨";
-        document.getElementById("cakeInstructions").innerText = "Tap the cake container box once more to cut it!!!";
+        document.getElementById("cakeInstructions").innerText = "Tap the cake box one more time to cut it!!!";
         statusText.innerText = "Candles lit beautifully!!! 🔥";
         cakeStep = 1;
     } else if (cakeStep === 1) {
@@ -160,9 +144,6 @@ function triggerConfettiShower() {
     }
 }
 
-/*==============================
-        WISHES TILES TIMELINE
-===============================*/
 function revealWishesSequentially() {
     const container = document.getElementById("dynamicWishesContainer");
     let currentIdx = 0;
@@ -170,7 +151,7 @@ function revealWishesSequentially() {
     function renderNextWish() {
         if (currentIdx < wishes.length) {
             const wishEl = document.createElement("div");
-            wishEl.className = "cute-reveal-msg zoom-target visible-card";
+            wishEl.className = "cute-reveal-msg zoom-target";
             wishEl.innerHTML = `<div class="card-decor">✨📜✨</div><strong style="color:#ff4081; font-size:1.1rem; display:block; margin-bottom:5px;">Wish Card #${currentIdx + 1}</strong> ${wishes[currentIdx]}`;
             
             wishEl.onpointerdown = function(e) {
@@ -186,6 +167,7 @@ function revealWishesSequentially() {
             };
             
             container.appendChild(wishEl);
+            setTimeout(() => wishEl.classList.add("visible"), 50);
             currentIdx++;
             setTimeout(renderNextWish, 1300);
         }
@@ -193,9 +175,6 @@ function revealWishesSequentially() {
     renderNextWish();
 }
 
-/*==============================
-        CAROUSEL CONTROLLER SLIDER MECHANICS
-===============================*/
 function showPicsPage(e) {
     if (e) e.stopPropagation();
     document.getElementById("wishesStagePage").style.display = "none";
@@ -203,18 +182,18 @@ function showPicsPage(e) {
     updateCarouselLayout();
 }
 
+// CAROUSEL MECHANICS FIX FOR THE IMAGES FOLDER SHIFT
 function moveCarousel(direction, e) {
-    if(e) e.stopPropagation();
-    const totalImages = 5;
+    if (e) e.stopPropagation();
     currentCarouselIndex += direction;
-    if (currentCarouselIndex >= totalImages) currentCarouselIndex = 0;
-    if (currentCarouselIndex < 0) currentCarouselIndex = totalImages - 1;
+    if (currentCarouselIndex >= 5) currentCarouselIndex = 0;
+    if (currentCarouselIndex < 0) currentCarouselIndex = 4;
     updateCarouselLayout();
 }
 
 function updateCarouselLayout() {
     const track = document.querySelector(".carouselTrack");
-    if(!track) return;
+    if (!track) return;
     track.style.transform = `translateX(-${currentCarouselIndex * 310}px)`;
     
     const dots = document.querySelectorAll(".dot");
@@ -230,9 +209,6 @@ function showMessagesPage(e) {
     revealMessagesSequentially();
 }
 
-/*==============================
-        MESSAGES TILES ENGINE
-===============================*/
 function revealMessagesSequentially() {
     const container = document.getElementById("dynamicMessagesContainer");
     let currentIdx = 0;
@@ -240,7 +216,23 @@ function revealMessagesSequentially() {
     function renderNextMessage() {
         if (currentIdx < messages.length) {
             const msgEl = document.createElement("div");
-            msgEl.className = "cute-reveal-msg zoom-target visible-card custom-bubble";
+            msgEl.className = "cute-reveal-msg zoom-target custom-bubble";
             msgEl.innerHTML = `<div class="card-decor">💬💖</div>${messages[currentIdx]}`;
             
             msgEl.onpointerdown = function(e) {
+                e.stopPropagation();
+                triggerZoom(this, e);
+            };
+            
+            container.appendChild(msgEl);
+            setTimeout(() => msgEl.classList.add("visible"), 50);
+            currentIdx++;
+            setTimeout(renderNextMessage, 1300);
+        }
+    }
+    renderNextMessage();
+}
+
+function closeModalBox() {
+    document.getElementById("wishModal").style.display = "none";
+}
