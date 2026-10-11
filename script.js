@@ -21,7 +21,7 @@ const wishes = {
     5: "Come to me if u ever want cat cuddles 😝😋"
 };
 
-// DIRECT EXCLUSIVE ZOOM FILTER (STOPS CLICKS ON KEYPAD FROM TRIGGERING IT)
+// DIRECT EXCLUSIVE ZOOM FILTER (PREVENTS ACCIDENTALLY GRABBING KEYPAD BUTTON CLICKS)
 function triggerZoom(element, e) {
     if(e) e.stopPropagation();
     if (activeZoomElement && activeZoomElement !== element) {
@@ -38,7 +38,7 @@ document.addEventListener("click", () => {
     }
 });
 
-// ROBUST FIXED KEYPAD LOGIC (FIXES THE 0 BUTTON DATA TYPE CONVERSION GLITCH)
+// ROBUST FIXED KEYPAD LOGIC (STOPS CLICKS ON KEY ELEMENTS FROM INTERCEPTING ZOOM SCALES)
 function pressKey(val) {
     const display = document.getElementById("passwordDisplay");
     if (display.innerText === "Enter PIN") display.innerText = "";
@@ -50,12 +50,12 @@ function pressKey(val) {
         enteredPin = enteredPin.slice(0, -1);
         display.innerText = enteredPin || "Enter PIN";
     } else if (enteredPin.length < 4) {
-        enteredPin += val.toString(); // Forcing pure string conversion so 0 appends properly
+        enteredPin += val.toString(); // Forces perfect index mapping for the 0 character string boundaries
         display.innerText = enteredPin;
     }
 }
 
-// VALIDATE PASSCODE & LAUNCH BACKGROUND TRACK MUSIC IMMEDIATELY
+// PASSCODE CONFIRMATION AND BACKGROUND TRACK AUDIO INITIALIZATION
 function verifyPasscode(e) {
     if(e) e.stopPropagation();
     const errorText = document.getElementById("wrongPassword");
@@ -63,7 +63,7 @@ function verifyPasscode(e) {
     const audioTrack = document.getElementById("birthdayMusic");
 
     if (enteredPin === CORRECT_PIN) {
-        audioTrack.play().catch(err => console.log("Audio track initialized safely", err));
+        audioTrack.play().catch(err => console.log("Audio contextual trigger active", err));
         document.getElementById("passwordPage").style.display = "none";
         document.getElementById("cakeStagePage").style.display = "block";
     } else {
@@ -73,7 +73,7 @@ function verifyPasscode(e) {
     }
 }
 
-// STEPWISE STAGED INTERACTIVE CAKE TIMELINE & CONFETTI SHOWER
+// STAGED INTERACTIVE CAKE TIMELINE & CONFETTI SHOWER
 function handleCakeInteraction(e) {
     if(e) e.stopPropagation();
     const statusText = document.getElementById("cakeStatusText");
@@ -117,7 +117,7 @@ function triggerConfettiShower() {
     }
 }
 
-// CUTE REVEAL SEQUENCE FOR TEXT MESSAGES
+// TIMED POPUP REVEAL SEQUENCE FOR TEXT MESSAGES
 function revealMessagesSequentially() {
     const container = document.getElementById("dynamicMessageContainer");
     let currentIdx = 0;
@@ -145,7 +145,7 @@ function revealMessagesSequentially() {
     renderNextMessage();
 }
 
-// HAMPER PAGE FLOW GATEWAYS
+// NAVIGATION FLOATING GATEWAYS
 function showHamperPage(e) {
     if(e) e.stopPropagation();
     document.getElementById("messageTimelinePage").style.display = "none";
