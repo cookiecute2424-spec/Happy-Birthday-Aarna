@@ -2,7 +2,7 @@ const CORRECT_PIN = "1110";
 let enteredPin = "";
 let openedWishes = new Set();
 let activeZoomElement = null;
-let cakeStep = 0; // 0 = unlit, 1 = lit, 2 = cut
+let cakeStep = 0; 
 
 const messages = [
     "I luv u sooooo much!!! Mwahhh 😜",
@@ -21,7 +21,7 @@ const wishes = {
     5: "Come to me if u ever want cat cuddles 😝😋"
 };
 
-// EXCLUSIVE DIRECT ZOOM CONTROLLER FOR MESSAGES, PICS, AND WISH MODALS ONLY
+// DIRECT EXCLUSIVE ZOOM FILTER (STOPS CLICKS ON KEYPAD FROM TRIGGERING IT)
 function triggerZoom(element, e) {
     if(e) e.stopPropagation();
     if (activeZoomElement && activeZoomElement !== element) {
@@ -38,7 +38,7 @@ document.addEventListener("click", () => {
     }
 });
 
-// ROBUST KEYPAD TRACKING FIXING THE 0 VALUE GLITCH
+// ROBUST FIXED KEYPAD LOGIC (FIXES THE 0 BUTTON DATA TYPE CONVERSION GLITCH)
 function pressKey(val) {
     const display = document.getElementById("passwordDisplay");
     if (display.innerText === "Enter PIN") display.innerText = "";
@@ -50,12 +50,12 @@ function pressKey(val) {
         enteredPin = enteredPin.slice(0, -1);
         display.innerText = enteredPin || "Enter PIN";
     } else if (enteredPin.length < 4) {
-        enteredPin += val.toString();
+        enteredPin += val.toString(); // Forcing pure string conversion so 0 appends properly
         display.innerText = enteredPin;
     }
 }
 
-// STAGE 1 & 2: VALIDATE PASSCODE AND START BACKGROUND TRACK MUSIC
+// VALIDATE PASSCODE & LAUNCH BACKGROUND TRACK MUSIC IMMEDIATELY
 function verifyPasscode(e) {
     if(e) e.stopPropagation();
     const errorText = document.getElementById("wrongPassword");
@@ -63,7 +63,7 @@ function verifyPasscode(e) {
     const audioTrack = document.getElementById("birthdayMusic");
 
     if (enteredPin === CORRECT_PIN) {
-        audioTrack.play().catch(err => console.log("Audio contextual trigger active", err));
+        audioTrack.play().catch(err => console.log("Audio track initialized safely", err));
         document.getElementById("passwordPage").style.display = "none";
         document.getElementById("cakeStagePage").style.display = "block";
     } else {
@@ -73,21 +73,19 @@ function verifyPasscode(e) {
     }
 }
 
-// STAGE 3 & 4: STAGED CAKE SELECTION FLOW & REALTIME CONFETTI EXPLOSION GENERATOR
+// STEPWISE STAGED INTERACTIVE CAKE TIMELINE & CONFETTI SHOWER
 function handleCakeInteraction(e) {
     if(e) e.stopPropagation();
     const statusText = document.getElementById("cakeStatusText");
     const flames = document.getElementById("candleFlames");
     
     if (cakeStep === 0) {
-        // Step A: Light Candles
         flames.innerHTML = '<span class="flame lit">🔥</span><span class="flame lit">🔥</span><span class="flame lit">🔥</span>';
         document.getElementById("cakeHeaderTitle").innerText = "Cut the Cake!!! 🍰✨";
         document.getElementById("cakeInstructions").innerText = "Tap the cake box one more time to cut it!!!";
         statusText.innerText = "Candles lit beautifully!!! 🔥";
         cakeStep = 1;
     } else if (cakeStep === 1) {
-        // Step B: Cut Cake & Run Confetti Flow
         flames.style.opacity = "0";
         document.getElementById("cakeVisual").innerText = "🍰✨🎉";
         statusText.innerText = "Cake cut perfectly!!! 🥳 Deploying surprise text stream...";
@@ -119,7 +117,7 @@ function triggerConfettiShower() {
     }
 }
 
-// STAGE 5: DELAYED SLIDE REVEAL ENGINE FOR TEXT MESSAGES
+// CUTE REVEAL SEQUENCE FOR TEXT MESSAGES
 function revealMessagesSequentially() {
     const container = document.getElementById("dynamicMessageContainer");
     let currentIdx = 0;
@@ -147,7 +145,7 @@ function revealMessagesSequentially() {
     renderNextMessage();
 }
 
-// STAGE 6: PHOTO HAMPER OPENINGS
+// HAMPER PAGE FLOW GATEWAYS
 function showHamperPage(e) {
     if(e) e.stopPropagation();
     document.getElementById("messageTimelinePage").style.display = "none";
