@@ -11,7 +11,7 @@
 <body>
 
 <div id="loadingScreen">
-    <h1>🐹 Preparing something magical...</h1>
+    <h1>Preparing the magic...</h1>
 </div>
 
 <div class="hearts"></div>
@@ -22,11 +22,11 @@
     <div class="passwordCard">
         <h1>🐹 Hii Aarna!</h1>
         <h2>Happy Birthday ❤️</h2>
-        <p>Before I let you in... Can you prove you're the birthday girl?<br><br>Enter the magical PIN below! 🎀</p>
+        <p>Before I let you in... Can you prove you're the birthday girl? Enter the magical PIN below! 🎀</p>
         
         <div class="capybara">
             <span style="font-size: 5rem; display: block; margin-bottom: 10px;">🐹</span>
-            <p id="capyMessage" style="font-size: 1.1rem; font-weight: 500; color: #ff5ea8; margin: 0;">I'm guarding the birthday surprise!</p>
+            <p id="capyMessage">I'm guarding the birthday surprise!</p>
         </div>
 
         <div id="passwordDisplay">Enter PIN</div>
@@ -55,55 +55,54 @@
 <!-- STEP 2 & 3: CAKE SECTION (CANDLE LIGHTING & CUTTING) -->
 <section id="cakeStagePage" style="display:none;">
     <div class="passwordCard">
-        <h1 style="font-size: 2.3rem;" id="cakeHeaderTitle">Light the Candles!!! 🕯️💖</h1>
-        <p style="font-size: 1.1rem; color: #666; margin-bottom: 25px;" id="cakeInstructions">Click the cake below to light the birthday candles!!!</p>
+        <h1 id="cakeHeaderTitle">Light the Candles!!! 🕯️💖</h1>
+        <p id="cakeInstructions">Click the cake below to light the birthday candles!!!</p>
         
         <div class="cake-interaction-box" onpointerdown="handleCakeInteraction(event)">
             <div class="candles-row" id="candleFlames">
                 <span class="flame unlit">🕯️</span><span class="flame unlit">🕯️</span><span class="flame unlit">🕯️</span>
             </div>
-            <!-- Expanded cake visual box layout geometry -->
             <div class="cake-graphic" id="cakeVisual">🎂✨</div>
         </div>
         
-        <p id="cakeStatusText" style="font-weight: bold; color: #ff4ea2; margin-top: 20px; font-size: 1.1rem; min-height: 25px;"></p>
+        <p id="cakeStatusText"></p>
     </div>
 </section>
 
-<!-- STEP 4: WISHES SURPRISE BOX TILES TIMELINE -->
+<!-- STEP 4: TIMED CARDS FOR WISHES -->
 <section id="wishesStagePage" style="display:none;">
     <div class="passwordCard">
         <h1>Wishes For You 🎀</h1>
-        <p style="color: #666; font-size: 1.05rem; margin-bottom: 20px;">Click individual wish cards to focus and scale them up!!!</p>
+        <p style="color: #666; font-size: 1rem; margin-bottom: 20px;">Click individual cards to zoom in and expand their text boxes!!!</p>
         
         <div id="dynamicWishesContainer"></div>
         <button type="button" id="proceedToPicsBtn" style="display:none; margin-top: 25px;" onpointerdown="showPicsPage(event)">See Memories 📸</button>
     </div>
 </section>
 
-<!-- STEP 5: PICS SECTION (PHOTO CAROUSEL MATRICES BACK IN VIEW) -->
+<!-- STEP 5: PICS COMPONENT (CAROUSEL TRACK WITH ACCURATE FIXED FOLDER PATHS) -->
 <section id="picsStagePage" style="display:none;">
     <div class="passwordCard">
-        <h1>Little Memories 📸❤️</h1>
-        <p style="color: #666; font-size: 1.05rem; margin-bottom: 25px;">A collection of beautiful moments shared together ✨</p>
+        <h1>Little Memories 📸✨</h1>
+        <p style="color: #666; font-size: 1rem; margin-bottom: 25px;">Tap separate photo containers to view them closely!!!</p>
 
-        <!-- Re-integrated carousel container slider layout tracker from original source code templates -->
         <div class="carouselWindow">
             <div class="carouselTrack">
-                <div class="photo-wrapper zoom-target" onpointerdown="triggerZoom(this, event)"><img src="images/photo1.jpg" alt="Memory 1"><span class="badge">1</span></div>
-                <div class="photo-wrapper zoom-target" onpointerdown="triggerZoom(this, event)"><img src="images/photo2.jpg" alt="Memory 2"><span class="badge">2</span></div>
-                <div class="photo-wrapper zoom-target" onpointerdown="triggerZoom(this, event)"><img src="images/photo3.jpg" alt="Memory 3"><span class="badge">3</span></div>
-                <div class="photo-wrapper zoom-target" onpointerdown="triggerZoom(this, event)"><img src="images/photo4.jpg" alt="Memory 4"><span class="badge">4</span></div>
-                <div class="photo-wrapper zoom-target" onpointerdown="triggerZoom(this, event)"><img src="images/photo5.jpg" alt="Memory 5"><span class="badge">5</span></div>
+                <!-- Swapped out 'images/' text blocks for the real 'image/' repository folder name -->
+                <div class="photo-wrapper zoom-target" onpointerdown="triggerZoom(this, event)"><img src="image/photo1.jpg" class="photo-wish-btn" alt="Memory 1"><span class="badge">1</span></div>
+                <div class="photo-wrapper zoom-target" onpointerdown="triggerZoom(this, event)"><img src="image/photo2.jpg" class="photo-wish-btn" alt="Memory 2"><span class="badge">2</span></div>
+                <div class="photo-wrapper zoom-target" onpointerdown="triggerZoom(this, event)"><img src="image/photo3.jpg" class="photo-wish-btn" alt="Memory 3"><span class="badge">3</span></div>
+                <div class="photo-wrapper zoom-target" onpointerdown="triggerZoom(this, event)"><img src="image/photo4.jpg" class="photo-wish-btn" alt="Memory 4"><span class="badge">4</span></div>
+                <div class="photo-wrapper zoom-target" onpointerdown="triggerZoom(this, event)"><img src="image/photo5.jpg" class="photo-wish-btn" alt="Memory 5"><span class="badge">5</span></div>
             </div>
         </div>
 
-        <div class="carouselControls" style="margin-top: 15px; display: flex; justify-content: center; gap: 20px;">
+        <div class="carouselControls">
             <button type="button" class="carouselBtn" id="prevBtn" onpointerdown="moveCarousel(-1, event)">❮ Prev</button>
             <button type="button" class="carouselBtn" id="nextBtn" onpointerdown="moveCarousel(1, event)">Next ❯</button>
         </div>
 
-        <div class="dots" style="margin-top: 10px; display: flex; justify-content: center; gap: 8px;">
+        <div class="dots">
             <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
         </div>
 
@@ -111,17 +110,17 @@
     </div>
 </section>
 
-<!-- STEP 6: DYNAMIC MESSAGES TIMELINE STREAM -->
+<!-- STEP 6: DYNAMIC MESSAGES LAYOUT -->
 <section id="messagesStagePage" style="display:none;">
     <div class="passwordCard">
         <h1>My Messages 💝</h1>
-        <p style="color: #666; font-size: 1.05rem; margin-bottom: 20px;">Tap individual message tiles to scale them forward!!!</p>
+        <p style="color: #666; font-size: 1rem; margin-bottom: 20px;">Tap individual message tiles to scale them forward!!!</p>
         
         <div id="dynamicMessagesContainer"></div>
     </div>
 </section>
 
-<!-- HARDWARE AUDIO NODE CONFIGURATION PATH LAYER -->
+<!-- AUDIO FILE INJECTOR -->
 <audio id="birthdayMusic" loop preload="auto">
     <source src="music/birthday.mp3" type="audio/mpeg">
 </audio>
