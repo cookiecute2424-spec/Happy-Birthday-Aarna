@@ -4,120 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Aarna</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://googleapis.com" rel="stylesheet">
-    <style>
-        /* Complete isolation layout style rules to completely kill style.css visual blocks */
-        body {
-            font-family: 'Fredoka', sans-serif !important;
-            background: #121212 !important;
-            color: #ffffff !important;
-            margin: 0 !important;
-            padding: 20px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            min-height: 100vh !important;
-            box-sizing: border-box !important;
-        }
-        section {
-            width: 100% !important;
-            max-width: 400px !important;
-            text-align: center !important;
-        }
-        .passwordCard, .welcomeCard, .hamperCard {
-            background: #1e1e1e !important;
-            border-radius: 20px !important;
-            padding: 30px 20px !important;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5) !important;
-            border: 2px solid #ff4081 !important;
-            margin-top: 20px !important;
-        }
-        #passwordDisplay {
-            color: #ffffff !important;
-            font-size: 2.5rem !important;
-            font-weight: bold !important;
-            letter-spacing: 4px !important;
-            margin: 25px auto !important;
-            min-height: 60px !important;
-            background: #2a2a2a !important;
-            border-radius: 12px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            border: 2px dashed #555 !important;
-            width: 85% !important;
-        }
-        #keypad {
-            display: grid !important;
-            grid-template-columns: repeat(3, 1fr) !important;
-            gap: 15px !important;
-            max-width: 300px !important;
-            margin: 0 auto 25px auto !important;
-        }
-        .key {
-            background: #ffffff !important;
-            color: #000000 !important;
-            border: none !important;
-            border-radius: 15px !important;
-            padding: 20px 0 !important;
-            font-size: 1.6rem !important;
-            font-weight: bold !important;
-            cursor: pointer !important;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2) !important;
-            transition: transform 0.1s !important;
-        }
-        .key:active {
-            transform: scale(0.95) !important;
-            background: #e0e0e0 !important;
-        }
-        #unlockBtn, #openHamper {
-            background: #ff4081 !important;
-            color: white !important;
-            border: none !important;
-            padding: 15px 30px !important;
-            font-size: 1.2rem !important;
-            font-weight: bold !important;
-            border-radius: 50px !important;
-            cursor: pointer !important;
-            width: 85% !important;
-            box-shadow: 0 4px 10px rgba(255,64,129,0.4) !important;
-        }
-        .photo-container-hamper {
-            display: flex !important;
-            flex-wrap: wrap !important;
-            justify-content: center !important;
-            gap: 15px !important;
-            margin: 25px 0 !important;
-        }
-        .photo-wish-btn {
-            width: 130px !important;
-            height: 130px !important;
-            border-radius: 15px !important;
-            border: 4px solid #ffffff !important;
-            object-fit: cover !important;
-            cursor: pointer !important;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3) !important;
-        }
-        .photo-wish-btn.viewed {
-            border-color: #4CAF50 !important;
-        }
-        .final-card-btn {
-            background: #555555 !important;
-            color: #aaaaaa !important;
-            padding: 20px !important;
-            border-radius: 15px !important;
-            margin-top: 25px !important;
-            cursor: not-allowed !important;
-            border: 2px dashed #777 !important;
-        }
-        .final-card-btn.unlocked {
-            background: #e91e63 !important;
-            color: white !important;
-            cursor: pointer !important;
-            border: 2px solid #fff !important;
-            box-shadow: 0 5px 15px rgba(233,30,99,0.5) !important;
-        }
-    </style>
 </head>
 <body>
 
@@ -131,22 +19,22 @@
         <div id="passwordDisplay">Enter PIN</div>
 
         <div id="keypad">
-            <button type="button" class="key">1</button>
-            <button type="button" class="key">2</button>
-            <button type="button" class="key">3</button>
-            <button type="button" class="key">4</button>
-            <button type="button" class="key">5</button>
-            <button type="button" class="key">6</button>
-            <button type="button" class="key">7</button>
-            <button type="button" class="key">8</button>
-            <button type="button" class="key">9</button>
-            <button type="button" class="key" style="background:#ff3333 !important; color:#fff !important;">CLR</button>
-            <button type="button" class="key">0</button>
-            <button type="button" class="key" style="background:#555 !important; color:#fff !important;">⌫</button>
+            <button type="button" class="key" onclick="pressKey('1')">1</button>
+            <button type="button" class="key" onclick="pressKey('2')">2</button>
+            <button type="button" class="key" onclick="pressKey('3')">3</button>
+            <button type="button" class="key" onclick="pressKey('4')">4</button>
+            <button type="button" class="key" onclick="pressKey('5')">5</button>
+            <button type="button" class="key" onclick="pressKey('6')">6</button>
+            <button type="button" class="key" onclick="pressKey('7')">7</button>
+            <button type="button" class="key" onclick="pressKey('8')">8</button>
+            <button type="button" class="key" onclick="pressKey('9')">9</button>
+            <button type="button" class="key" style="background:#ff3333 !important; color:#fff !important;" onclick="pressKey('CLR')">CLR</button>
+            <button type="button" class="key" onclick="pressKey('0')">0</button>
+            <button type="button" class="key" style="background:#555 !important; color:#fff !important;" onclick="pressKey('DEL')">⌫</button>
         </div>
 
         <p style="color: #ff4081; font-weight: bold; margin: 15px 0;" id="hintTextDisplay">Hint: Bday Date</p>
-        <button type="button" id="unlockBtn">Unlock Surprise !!!</button>
+        <button type="button" id="unlockBtn" onclick="verifyPasscode()">Unlock Surprise !!!</button>
         <p id="wrongPassword" style="color: #ff3333; font-weight: bold; margin-top: 15px; min-height: 20px;"></p>
     </div>
 </section>
@@ -165,7 +53,7 @@
             <p style="padding: 10px; margin: 8px 0; background: #2a2a2a; border-radius: 8px; border-left: 4px solid #ff4081;">Thanks for always teaching me everything 1min before the exam. 🙏🏼🙏🏼</p>
         </div>
 
-        <button type="button" id="openHamper">Open My Birthday Hamper !!!</button>
+        <button type="button" id="openHamper" onclick="showHamperPage()">Open My Birthday Hamper !!!</button>
     </div>
 </section>
 
@@ -176,14 +64,14 @@
         <p style="color: #ccc; margin: 0;">Click on each picture to unlock my wishes for you!!!</p>
 
         <div class="photo-container-hamper">
-            <img src="images/photo1.jpg" class="photo-wish-btn" id="picBtn1" alt="Wish 1">
-            <img src="images/photo2.jpg" class="photo-wish-btn" id="picBtn2" alt="Wish 2">
-            <img src="images/photo3.jpg" class="photo-wish-btn" id="picBtn3" alt="Wish 3">
-            <img src="images/photo4.jpg" class="photo-wish-btn" id="picBtn4" alt="Wish 4">
-            <img src="images/photo5.jpg" class="photo-wish-btn" id="picBtn5" alt="Wish 5">
+            <img src="images/photo1.jpg" class="photo-wish-btn" id="picBtn1" onclick="openWishBox(1)" alt="Wish 1">
+            <img src="images/photo2.jpg" class="photo-wish-btn" id="picBtn2" onclick="openWishBox(2)" alt="Wish 2">
+            <img src="images/photo3.jpg" class="photo-wish-btn" id="picBtn3" onclick="openWishBox(3)" alt="Wish 3">
+            <img src="images/photo4.jpg" class="photo-wish-btn" id="picBtn4" onclick="openWishBox(4)" alt="Wish 4">
+            <img src="images/photo5.jpg" class="photo-wish-btn" id="picBtn5" onclick="openWishBox(5)" alt="Wish 5">
         </div>
 
-        <div class="final-card-btn" id="finalGiftSlot">
+        <div class="final-card-btn" id="finalGiftSlot" onclick="openFinalWishBox()">
             <h3 style="margin: 0 0 5px 0;">Final Manifestation Card</h3>
             <p style="margin: 0; font-size: 0.85rem;">Unlock after tapping all photos !!!</p>
         </div>
@@ -198,7 +86,7 @@
 <!-- POPUP MODAL SCREEN -->
 <div class="modal" id="wishModal" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:100000;">
     <div style="background:#222; color:#fff; padding: 30px 20px; border-radius:20px; max-width:85%; width:340px; position:relative; text-align:center; border: 2px solid #ff4081;">
-        <span id="modalCloseBtn" style="position:absolute; top:10px; right:20px; font-size:30px; cursor:pointer; font-weight:bold; color: #ff4081;">&times;</span>
+        <span onclick="closeModalBox()" style="position:absolute; top:10px; right:20px; font-size:30px; cursor:pointer; font-weight:bold; color: #ff4081;">&times;</span>
         <h1 id="modalTitle" style="margin: 0 0 15px 0; color:#ff4081; font-size: 1.6rem;">Wish</h1>
         <p id="modalText" style="font-size:1.1rem; line-height:1.5; margin: 0; color: #eee;"></p>
     </div>
@@ -207,4 +95,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
