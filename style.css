@@ -1,187 +1,183 @@
+/*==================================================
+      HAPPY BIRTHDAY AARNA
+      STYLE.CSS - REBUILT STYLING LAYER
+===================================================*/
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    touch-action: manipulation !important;
+    box-sizing: border-box;
+    font-family: 'Fredoka', sans-serif;
+    touch-action: manipulation !important; /* Locks structural panel zooming on tap events */
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Fredoka', sans-serif !important;
-    background: linear-gradient(135deg, #ffdeeb 0%, #fed6e3 50%, #fbc2eb 100%) !important;
-    color: #4a4a4a !important;
-    padding: 20px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    min-height: 100vh !important;
+    background: linear-gradient(135deg, #ffd5ec 0%, #ffe6f5 25%, #f9dfff 55%, #dff7ff 100%);
+    background-size: 400% 400%;
+    animation: gradientMove 18s ease infinite;
+    min-height: 100vh;
     overflow-x: hidden;
+    overflow-y: auto;
+    color: #444;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.stars-bg {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.6) 1px, transparent 1px),
-                      radial-gradient(circle at 75% 60%, rgba(255,255,255,0.6) 2px, transparent 2px);
-    background-size: 100px 100px;
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
+/* SECTIONS SETUP */
 section {
-    width: 100% !important;
-    max-width: 420px !important;
+    width: 100%;
+    max-width: 440px;
+    display: none;
     position: relative;
     z-index: 10;
 }
 
-.kawaiiCard {
-    background: rgba(255, 255, 255, 0.94) !important;
-    border-radius: 24px !important;
-    padding: 30px 20px !important;
-    box-shadow: 0 12px 35px rgba(255, 105, 180, 0.25) !important;
-    border: 3px solid #ff69b4 !important;
-    margin-top: 15px !important;
+#passwordPage, #cakeStagePage, #wishesStagePage, #picsStagePage, #messagesStagePage {
+    justify-content: center;
+    align-items: center;
 }
 
-h1 { color: #ff4081 !important; font-size: 2.1rem; margin-bottom: 5px; }
-h2 { color: #ff69b4 !important; font-size: 1.4rem; margin-bottom: 10px; }
-.subtext { font-size: 0.95rem; color: #7b68ee; font-weight: 500; margin-bottom: 15px; }
+#passwordPage {
+    display: flex;
+}
+
+/* LOADING PORTAL RESET */
+#loadingScreen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #ffd8ef, #fff0f8, #ffe1f4);
+    display: flex; justify-content: center; align-items: center;
+    flex-direction: column; z-index: 99999;
+    transition: opacity 0.5s ease;
+}
+
+#loadingScreen h1 {
+    font-size: 38px; color: #ff5ea8;
+    animation: bounce 1.8s infinite; text-align: center; padding: 20px;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+}
+
+/* FLOATING EFFECTS */
+.hearts {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: -1; overflow: hidden;
+}
+.hearts::before {
+    content: "💖 💕 💗 💞 🤍"; position: absolute; font-size: 30px;
+    width: 100%; white-space: nowrap; animation: heartScroll 28s linear infinite; opacity: .18;
+}
+@keyframes heartScroll { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+/* PASSWORD SURPRISE BOX TILES */
+.passwordCard {
+    width: 100%; padding: 40px 20px; border-radius: 35px;
+    background: rgba(255, 255, 255, .65);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 20px 50px rgba(0,0,0,.15);
+    border: 2px solid rgba(255,255,255,.4); text-align: center;
+}
+
+.passwordCard h1 { font-size: 2.3rem; color: #ff4ea2; margin-bottom: 5px; }
+.passwordCard h2 { font-size: 1.5rem; color: #ff76b8; margin-bottom: 15px; }
+.passwordCard p { font-size: 1.05rem; line-height: 1.6; color: #555; margin-bottom: 20px; }
 
 #passwordDisplay {
-    color: #ff4081 !important;
-    font-size: 2.2rem !important;
-    font-weight: bold !important;
-    letter-spacing: 4px !important;
-    margin: 20px auto !important;
-    min-height: 60px !important;
-    background: #fff0f5 !important;
-    border-radius: 16px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    border: 3px dashed #ffb6c1 !important;
-    width: 90% !important;
+    color: #ff4081 !important; font-size: 2.2rem !important; font-weight: bold !important;
+    letter-spacing: 4px !important; margin: 20px auto !important; min-height: 60px !important;
+    background: #fff0f5 !important; border-radius: 16px !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    border: 3px dashed #ffb6c1 !important; width: 90% !important;
 }
 
-.actionBtn {
-    background: linear-gradient(45deg, #ff416c, #ff4b2b) !important;
-    color: white !important;
-    border: none !important;
-    padding: 15px 32px !important;
-    font-size: 1.2rem !important;
-    font-weight: bold !important;
-    border-radius: 50px !important;
-    cursor: pointer !important;
-    width: 90% !important;
-    margin: 10px auto 0 auto;
-    box-shadow: 0 5px 15px rgba(255,65,108,0.4) !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#keypad {
+    display: grid !important; grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important; max-width: 290px !important; margin: 0 auto 20px auto !important;
+}
+
+.key {
+    background: #ffffff !important; color: #ff5599 !important; border: 2px solid #ffdae9 !important;
+    border-radius: 18px !important; padding: 16px 0 !important; font-size: 1.4rem !important;
+    font-weight: bold !important; cursor: pointer !important;
+    box-shadow: 0 4px 8px rgba(255,182,193,0.3) !important;
+}
+.key:active { background: #ffedf4 !important; }
+.clr-bg { background: #ff758c !important; color: white !important; }
+.del-bg { background: #afb3c2 !important; color: white !important; }
+
+#unlockBtn, .actionBtn {
+    padding: 16px 42px; font-size: 1.1rem; font-weight: 600; border: none;
+    border-radius: 999px; cursor: pointer; display: block; width: 90%; margin: 15px auto 0 auto;
+    background: linear-gradient(135deg, #ff69b4, #ff4f99); color: white;
+    box-shadow: 0 10px 20px rgba(255,80,150,.25);
 }
 
 /* CAKE */
-.cake-container {
-    margin: 25px auto;
-    cursor: pointer;
-    display: inline-block;
-}
-.candles-row { font-size: 1.8rem; min-height: 35px; }
 .flame { display: inline-block; margin: 0 5px; }
 .flame.lit { animation: flicker 0.6s infinite alternate; }
-.cake-graphic { font-size: 4.5rem; transition: transform 0.3s ease; }
+@keyframes flicker { 0% { transform: scale(1) rotate(-2deg); } 100% { transform: scale(1.1) rotate(2deg); } }
 
-/* CONFETTI */
+/* CONFETTI SYSTEM SHOWER */
 #confettiContainer {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     pointer-events: none; z-index: 99999; overflow: hidden;
 }
 .confetti-piece {
-    position: absolute; width: 10px; height: 10px;
-    border-radius: 50%; opacity: 0.8;
+    position: absolute; width: 10px; height: 10px; border-radius: 50%;
     animation: fall linear forwards;
 }
+@keyframes fall { 0% { transform: translateY(-50px); opacity: 1; } 100% { transform: translateY(105vh); opacity: 0; } }
 
-/* MESSAGES REVEAL */
-#dynamicMessageContainer { margin: 20px 0; min-height: 150px; }
+/* DELAYED TILES REVEAL BLOCKS */
 .cute-reveal-msg {
-    padding: 12px !important; margin: 12px 0 !important;
+    padding: 14px !important; margin: 12px 0 !important;
     background: #fff8fa !important; border-radius: 14px !important;
     border-left: 5px solid #ff69b4 !important; text-align: left;
-    font-size: 0.98rem; font-weight: 500;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-    opacity: 0; transform: translateY(10px);
+    font-size: 0.98rem; font-weight: 500; opacity: 0; transform: translateY(10px);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out, box-shadow 0.3s ease;
-    cursor: pointer;
 }
 .cute-reveal-msg.visible { opacity: 1; transform: translateY(0); }
 
-/* HAMPER COMPONENT MATRIX */
+/* PICS CARDS LAYER HAMPER */
 .photo-container-hamper {
     display: flex !important; flex-wrap: wrap !important;
     justify-content: center !important; gap: 15px !important; margin: 25px 0 !important;
 }
-.photo-wrapper { position: relative; display: inline-block; }
 .photo-wish-btn {
-    width: 130px !important; height: 130px !important;
-    border-radius: 20px !important; border: 4px solid #ffffff !important;
-    object-fit: cover !important; cursor: pointer;
-    box-shadow: 0 6px 14px rgba(255,105,180,0.2) !important;
+    width: 125px !important; height: 125px !important;
+    border-radius: 20px !important; border: 4px solid #ffffff !important; object-fit: cover !important;
 }
-.photo-wish-btn.viewed { border-color: #4CAF50 !important; }
 .badge {
-    position: absolute; top: -5px; right: -5px;
-    background: #ff4081; color: white; font-size: 0.75rem; font-weight: bold;
-    width: 22px; height: 22px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; border: 2px solid white;
-    z-index: 5;
+    position: absolute; top: -5px; right: -5px; background: #ff4081; color: white;
+    font-size: 0.75rem; font-weight: bold; width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; border: 2px solid white; z-index: 5;
 }
 
-.final-card-btn {
-    background: #eaeaea !important; color: #999999 !important; padding: 22px !important;
-    border-radius: 20px !important; margin-top: 25px !important; cursor: not-allowed !important;
-    border: 3px dashed #bbbbbb !important;
-}
-.final-card-btn.unlocked {
-    background: linear-gradient(135deg, #fecfef 0%, #ff9a9e 100%) !important;
-    color: #fff !important; cursor: pointer !important; border: 3px solid #ffffff !important;
-    box-shadow: 0 8px 25px rgba(255,154,158,0.5) !important;
-}
-.final-card-btn.unlocked h3 { color: #ff4081 !important; }
-.final-card-btn.unlocked p { color: #6a1b9a !important; font-weight: 500; }
-.final-icon { font-size: 2rem; }
-
-/* MODALS */
-.modal {
-    position: fixed; top:0; left:0; width:100%; height:100%;
-    background: rgba(255, 182, 193, 0.65) !important; backdrop-filter: blur(4px);
-    display: flex; justify-content: center; align-items: center; z-index: 100000;
-}
-.modalPopup {
-    background: #ffffff; color: #4a4a4a; padding: 30px 20px; border-radius: 24px;
-    max-width: 85%; width: 340px; position: relative; text-align: center; border: 3px solid #ff69b4;
-}
-.modalCloseBtn { position: absolute; top: 10px; right: 18px; font-size: 28px; cursor: pointer; color: #ff69b4; font-weight: bold; }
-.modal-decorations { font-size: 1.8rem; margin-bottom: 10px; }
-#wrongPassword { color: #ff3333; font-weight: bold; margin-top: 10px; }
-
-/* ZOOMS APPLIED EXCLUSIVELY TO WISHES, MESSAGES, AND PICS ONLY */
+/* HARDCODED ELEMENT-SPECIFIC MICRO ZOOMS EFFECT ONLY */
 .zoom-target {
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease !important;
 }
 .zoom-active {
-    transform: scale(1.15) !important;
-    box-shadow: 0 15px 30px rgba(255, 64, 129, 0.3) !important;
+    transform: scale(1.14) !important;
+    box-shadow: 0 15px 30px rgba(255, 64, 129, 0.25) !important;
     z-index: 99999 !important;
 }
-.photo-wrapper.zoom-active { transform: scale(1.15) rotate(2deg) !important; }
-
-/* REUSABLE ANIMATIONS */
-@keyframes flicker {
-    0% { transform: scale(1) rotate(-2deg); opacity: 0.9; }
-    100% { transform: scale(1.1) rotate(2deg); opacity: 1; }
-}
-@keyframes fall {
-    0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
-}
+.photo-wrapper.zoom-active { transform: scale(1.14) rotate(2deg) !important; }
+#wrongPassword { color: #ff2f68; font-weight: bold; margin-top: 15px; }
+.hint-label-clue { color: #ff4ea2; font-weight: bold; margin-top: 15px; font-size: 0.95rem; }
