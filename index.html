@@ -6,6 +6,17 @@
     <title>Happy Birthday Aarna</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        /* Essential inline locks to bypass broken browser layers */
+        #passwordPage { display: block; position: relative; z-index: 100; }
+        #canvasKeypad { 
+            display: block; 
+            margin: 20px auto; 
+            background: transparent; 
+            cursor: pointer;
+            touch-action: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -22,21 +33,8 @@
         
         <div id="passwordDisplay">Enter PIN</div>
 
-        <!-- Transformed into explicit touch-responsive division panels -->
-        <div id="keypad">
-            <div class="key" onclick="pressKey('1')">1</div>
-            <div class="key" onclick="pressKey('2')">2</div>
-            <div class="key" onclick="pressKey('3')">3</div>
-            <div class="key" onclick="pressKey('4')">4</div>
-            <div class="key" onclick="pressKey('5')">5</div>
-            <div class="key" onclick="pressKey('6')">6</div>
-            <div class="key" onclick="pressKey('7')">7</div>
-            <div class="key" onclick="pressKey('8')">8</div >
-            <div class="key" onclick="pressKey('9')">9</div>
-            <div class="key system-key clr-bg" onclick="pressKey('CLR')">CLR</div>
-            <div class="key" onclick="pressKey('0')">0</div>
-            <div class="key system-key del-bg" onclick="pressKey('DEL')">⌫</div>
-        </div>
+        <!-- Canvas element locks layout drawing matrix -->
+        <canvas id="canvasKeypad" width="300" height="400"></canvas>
 
         <p class="hint-text" id="hintTextDisplay">Hint: Bday Date</p>
         <div id="unlockBtn" class="actionBtn" onclick="verifyPasscode(event)">Unlock Surprise ✨</div>
@@ -113,3 +111,4 @@
 <script src="script.js"></script>
 </body>
 </html>
+
