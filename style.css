@@ -1,4 +1,4 @@
-/* RESET AND MAIN WRAPPER FIXED VISIBILITY */
+/* SYSTEM-WIDE LAYOUT RESET */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -14,39 +14,35 @@ body {
     flex-direction: column !important;
     align-items: center !important;
     min-height: 100vh !important;
+    -webkit-font-smoothing: antialiased;
 }
 
 section {
     width: 100% !important;
     max-width: 400px !important;
     text-align: center !important;
-    display: block;
 }
 
-#passwordPage {
-    position: relative !important;
-    z-index: 100 !important;
-}
-
+/* CARDS STYLING */
 .passwordCard, .welcomeCard, .hamperCard {
     background: #1e1e1e !important;
     border-radius: 20px !important;
-    padding: 30px 20px !important;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5) !important;
+    padding: 35px 20px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6) !important;
     border: 2px solid #ff4081 !important;
     margin-top: 20px !important;
 }
 
-/* FORCES KEYPAD TO BE FULLY CLICKABLE ON SCREEN LAYERS */
+/* PASSWORD INFRASTRUCTURE */
 #passwordDisplay {
     color: #ffffff !important;
-    font-size: 2.2rem !important;
+    font-size: 2.4rem !important;
     font-weight: bold !important;
-    letter-spacing: 2px !important;
-    margin: 20px auto !important;
-    min-height: 60px !important;
+    letter-spacing: 3px !important;
+    margin: 25px auto !important;
+    min-height: 65px !important;
     background: #2a2a2a !important;
-    border-radius: 12px !important;
+    border-radius: 15px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -57,45 +53,49 @@ section {
 #keypad {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 12px !important;
-    max-width: 280px !important;
-    margin: 20px auto !important;
-    position: relative !important;
-    z-index: 99999 !important;
-    pointer-events: auto !important;
+    gap: 15px !important;
+    max-width: 290px !important;
+    margin: 0 auto 25px auto !important;
 }
 
 .key {
     background: #ffffff !important;
     color: #000000 !important;
     border: none !important;
-    border-radius: 15px !important;
+    border-radius: 16px !important;
     padding: 18px 0 !important;
     font-size: 1.5rem !important;
     font-weight: bold !important;
     cursor: pointer !important;
-    pointer-events: auto !important;
-    user-select: none !important;
     box-shadow: 0 4px 6px rgba(0,0,0,0.2) !important;
+    user-select: none !important;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .key:active {
-    background: #e0e0e0 !important;
+    background: #dddddd !important;
+    transform: scale(0.96);
 }
 
 #unlockBtn, #openHamper {
     background: #ff4081 !important;
     color: white !important;
     border: none !important;
-    padding: 15px 30px !important;
+    padding: 16px 30px !important;
     font-size: 1.2rem !important;
     font-weight: bold !important;
     border-radius: 50px !important;
     cursor: pointer !important;
     width: 85% !important;
-    margin-top: 15px !important;
+    box-shadow: 0 4px 12px rgba(255,64,129,0.3) !important;
+    transition: background 0.2s;
 }
 
+#unlockBtn:active, #openHamper:active {
+    background: #e91e63 !important;
+}
+
+/* HAMPER PICTURE MATRIX */
 .photo-container-hamper {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -105,26 +105,34 @@ section {
 }
 
 .photo-wish-btn {
-    width: 120px !important;
-    height: 120px !important;
-    border-radius: 15px !important;
+    width: 125px !important;
+    height: 125px !important;
+    border-radius: 18px !important;
     border: 4px solid #ffffff !important;
     object-fit: cover !important;
     cursor: pointer !important;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3) !important;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.photo-wish-btn:active {
+    transform: scale(0.95);
 }
 
 .photo-wish-btn.viewed {
     border-color: #4CAF50 !important;
 }
 
+/* FINAL LOCKED/UNLOCKED ACTIONS */
 .final-card-btn {
-    background: #555555 !important;
-    color: #aaaaaa !important;
+    background: #444444 !important;
+    color: #888888 !important;
     padding: 20px !important;
     border-radius: 15px !important;
     margin-top: 25px !important;
     cursor: not-allowed !important;
-    border: 2px dashed #777 !important;
+    border: 2px dashed #666 !important;
+    transition: all 0.3s ease;
 }
 
 .final-card-btn.unlocked {
@@ -132,8 +140,16 @@ section {
     color: white !important;
     cursor: pointer !important;
     border: 2px solid #fff !important;
+    box-shadow: 0 6px 20px rgba(233,30,99,0.5) !important;
 }
 
-#loadingScreen, .hearts {
+/* CLEANUP OLD UNUSED ARTIFACT CLASSES */
+#loadingScreen, .hearts, .carousel, .dots {
     display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    position: absolute !important;
+    pointer-events: none !important;
 }
