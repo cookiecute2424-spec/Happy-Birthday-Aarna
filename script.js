@@ -182,7 +182,6 @@ function showPicsPage(e) {
     updateCarouselLayout();
 }
 
-// CAROUSEL MECHANICS FIX FOR THE IMAGES FOLDER SHIFT
 function moveCarousel(direction, e) {
     if (e) e.stopPropagation();
     currentCarouselIndex += direction;
