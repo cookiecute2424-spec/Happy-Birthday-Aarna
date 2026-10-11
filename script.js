@@ -10,95 +10,58 @@ const wishes = {
     5: "Come to me if u ever want cat cuddles 😝😋"
 };
 
-// DIRECT HARDWARE INTERCEPT ENGINE FOR RELIABLE CLICK TRACKING
-window.addEventListener("DOMContentLoaded", () => {
-    setupKeypadHandlers();
-    setupHamperHandlers();
-});
-
-function setupKeypadHandlers() {
+// EXPLICIT GLOBAL KEYPAD FUNCTION
+function pressKey(val) {
     const display = document.getElementById("passwordDisplay");
-    const keys = document.querySelectorAll(".key");
 
-    keys.forEach(key => {
-        key.addEventListener("click", function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const keyValue = this.innerText.trim();
-
-            if (display.innerText === "Enter PIN") {
-                display.innerText = "";
-            }
-
-            if (keyValue === "CLR") {
-                enteredPin = "";
-                display.innerText = "Enter PIN";
-            } else if (keyValue === "⌫") {
-                enteredPin = enteredPin.slice(0, -1);
-                display.innerText = enteredPin || "Enter PIN";
-            } else if (enteredPin.length < 4) {
-                enteredPin += keyValue;
-                display.innerText = enteredPin;
-            }
-        });
-    });
-
-    // PASSCODE VALIDATION AND AUDIO TRIGGER INITIALIZATION
-    document.getElementById("unlockBtn").addEventListener("click", (e) => {
-        e.preventDefault();
-        const errorText = document.getElementById("wrongPassword");
-        const audioTrack = document.getElementById("birthdayMusic");
-
-        if (enteredPin === CORRECT_PIN) {
-            // INSTANTLY RUNS AND BOOTS UP THE AUDIO SONG TRACK FILE
-            audioTrack.play().then(() => {
-                console.log("Audio pipeline launched successfully");
-            }).catch(err => {
-                console.log("Forcing web audio track context backup initialization", err);
-            });
-
-            document.getElementById("passwordPage").style.display = "none";
-            document.getElementById("welcomePage").style.display = "block";
-        } else {
-            errorText.innerText = "Wrong PIN!!! Try again";
-            enteredPin = "";
-            display.innerText = "Enter PIN";
-        }
-    });
-}
-
-function setupHamperHandlers() {
-    document.getElementById("openHamper").addEventListener("click", () => {
-        document.getElementById("welcomePage").style.display = "none";
-        document.getElementById("hamperPage").style.display = "block";
-    });
-
-    for (let i = 1; i <= 5; i++) {
-        const imgBtn = document.getElementById(`picBtn${i}`);
-        if (imgBtn) {
-            imgBtn.addEventListener("click", function() {
-                openWishBox(i);
-                this.classList.add("viewed");
-            });
-        }
+    if (display.innerText === "Enter PIN") {
+        display.innerText = "";
     }
 
-    document.getElementById("modalCloseBtn").addEventListener("click", () => {
-        document.getElementById("wishModal").style.display = "none";
-    });
+    if (val === "CLR") {
+        enteredPin = "";
+        display.innerText = "Enter PIN";
+    } else if (val === "DEL") {
+        enteredPin = enteredPin.slice(0, -1);
+        display.innerText = enteredPin || "Enter PIN";
+    } else if (enteredPin.length < 4) {
+        enteredPin += val;
+        display.innerText = enteredPin;
+    }
+}
 
-    document.getElementById("finalGiftSlot").addEventListener("click", function() {
-        if (openedWishes.size >= 5) {
-            document.getElementById("modalTitle").innerText = "Manifesting !!! 😉😍😍";
-            document.getElementById("modalText").innerText = "Manifesting we get into the exact same college batch so i can copy off the smartest topper ik!!!!";
-            document.getElementById("wishModal").style.display = "flex";
-        }
-    });
+// PASSCODE UNLOCK CONFIRMATION AND IMMEDIATE SONG STREAM INITIALIZATION
+function verifyPasscode() {
+    const errorText = document.getElementById("wrongPassword");
+    const display = document.getElementById("passwordDisplay");
+    const audioTrack = document.getElementById("birthdayMusic");
+
+    if (enteredPin === CORRECT_PIN) {
+        // FORCES TRACK ENGINE AUDIO INITIALIZATION IMMEDIATELY UPON PIN ENTRY MATCH
+        audioTrack.play().then(() => {
+            console.log("Audio streaming active");
+        }).catch(err => {
+            console.log("Audio auto-playback handled by user click", err);
+        });
+
+        document.getElementById("passwordPage").style.display = "none";
+        document.getElementById("welcomePage").style.display = "block";
+    } else {
+        errorText.innerText = "Wrong PIN!!! Try again";
+        enteredPin = "";
+        display.innerText = "Enter PIN";
+    }
+}
+
+function showHamperPage() {
+    document.getElementById("welcomePage").style.display = "none";
+    document.getElementById("hamperPage").style.display = "block";
 }
 
 function openWishBox(id) {
     openedWishes.add(id);
+    document.getElementById(`picBtn${id}`).classList.add("viewed");
+    
     document.getElementById("modalTitle").innerText = `Wish #${id}`;
     document.getElementById("modalText").innerText = wishes[id];
     document.getElementById("wishModal").style.display = "flex";
@@ -108,4 +71,15 @@ function openWishBox(id) {
         finalSlot.classList.add("unlocked");
         finalSlot.querySelector("p").innerText = "Tap here to open your final gift !!!";
     }
+}
+
+function closeModalBox() {
+    document.getElementById("wishModal").style.display = "none";
+}
+
+function openFinalWishBox() {
+    if (openedWishes.size < 5) return;
+    document.getElementById("modalTitle").innerText = "Manifesting !!! 😉😍😍";
+    document.getElementById("modalText").innerText = "Manifesting we get into the exact same college batch so i can copy off the smartest topper ik!!!!";
+    document.getElementById("wishModal").style.display = "flex";
 }
