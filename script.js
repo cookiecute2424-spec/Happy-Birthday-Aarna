@@ -21,7 +21,7 @@ const wishes = {
     5: "Come to me if u ever want cat cuddles 😝😋"
 };
 
-// DIRECT EXCLUSIVE ZOOM FILTER (PREVENTS ACCIDENTALLY GRABBING KEYPAD BUTTON CLICKS)
+// SELECTIVE IMMERSIVE FILTER ENGINE FOR ZOOM INTERACTIONS
 function triggerZoom(element, e) {
     if(e) e.stopPropagation();
     if (activeZoomElement && activeZoomElement !== element) {
@@ -38,7 +38,7 @@ document.addEventListener("click", () => {
     }
 });
 
-// ROBUST FIXED KEYPAD LOGIC (STOPS CLICKS ON KEY ELEMENTS FROM INTERCEPTING ZOOM SCALES)
+// ROBUST HARDWARE DIV PANEL CLICK EXTRACTIONS (BYPASSES MULTIPLE BROWSER INPUT GLITCHES)
 function pressKey(val) {
     const display = document.getElementById("passwordDisplay");
     if (display.innerText === "Enter PIN") display.innerText = "";
@@ -50,12 +50,12 @@ function pressKey(val) {
         enteredPin = enteredPin.slice(0, -1);
         display.innerText = enteredPin || "Enter PIN";
     } else if (enteredPin.length < 4) {
-        enteredPin += val.toString(); // Forces perfect index mapping for the 0 character string boundaries
+        enteredPin += val.toString(); // Secures index bounds for 0 values cleanly
         display.innerText = enteredPin;
     }
 }
 
-// PASSCODE CONFIRMATION AND BACKGROUND TRACK AUDIO INITIALIZATION
+// VALIDATE PASSWORD AND STREAM MUSIC AUDIO
 function verifyPasscode(e) {
     if(e) e.stopPropagation();
     const errorText = document.getElementById("wrongPassword");
@@ -63,7 +63,7 @@ function verifyPasscode(e) {
     const audioTrack = document.getElementById("birthdayMusic");
 
     if (enteredPin === CORRECT_PIN) {
-        audioTrack.play().catch(err => console.log("Audio contextual trigger active", err));
+        audioTrack.play().catch(err => console.log("Audio connection layer initialized safely", err));
         document.getElementById("passwordPage").style.display = "none";
         document.getElementById("cakeStagePage").style.display = "block";
     } else {
@@ -73,7 +73,7 @@ function verifyPasscode(e) {
     }
 }
 
-// STAGED INTERACTIVE CAKE TIMELINE & CONFETTI SHOWER
+// STAGED INTERACTIVE CAKE CUTTING AND PARTY CONFETTI SHOWER
 function handleCakeInteraction(e) {
     if(e) e.stopPropagation();
     const statusText = document.getElementById("cakeStatusText");
@@ -117,7 +117,7 @@ function triggerConfettiShower() {
     }
 }
 
-// TIMED POPUP REVEAL SEQUENCE FOR TEXT MESSAGES
+// CUTE REVEAL SEQUENCE FOR TEXT MESSAGES
 function revealMessagesSequentially() {
     const container = document.getElementById("dynamicMessageContainer");
     let currentIdx = 0;
@@ -145,7 +145,7 @@ function revealMessagesSequentially() {
     renderNextMessage();
 }
 
-// NAVIGATION FLOATING GATEWAYS
+// NAVIGATION FLOW CONTROLLERS
 function showHamperPage(e) {
     if(e) e.stopPropagation();
     document.getElementById("messageTimelinePage").style.display = "none";
