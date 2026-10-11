@@ -10,10 +10,11 @@
 <body>
 
 <div class="stars-bg"></div>
+<div id="confettiContainer"></div>
 
 <!-- STEP 1: PASSWORD PAGE -->
 <section id="passwordPage">
-    <div class="kawaiiCard pinkGlow zoom-target" onclick="triggerZoom(this)">
+    <div class="kawaiiCard pinkGlow">
         <div class="card-icon">🔒✨</div>
         <h1>Hii Aarna</h1>
         <h2>Happy Birthday</h2>
@@ -32,7 +33,7 @@
             <button type="button" class="key" onclick="pressKey('8')">8</button>
             <button type="button" class="key" onclick="pressKey('9')">9</button>
             <button type="button" class="key system-key clr-bg" onclick="pressKey('CLR')">CLR</button>
-            <button type="button" class="key">0</button>
+            <button type="button" class="key" onclick="pressKey('0')">0</button>
             <button type="button" class="key system-key del-bg" onclick="pressKey('DEL')">⌫</button>
         </div>
 
@@ -42,17 +43,17 @@
     </div>
 </section>
 
-<!-- STEP 2: CELEBRATION CAKE STAGE -->
+<!-- STEP 2: CELEBRATION CAKE & LIGHTING CANDLES STAGE -->
 <section id="cakeStagePage" style="display:none;">
-    <div class="kawaiiCard pinkGlow zoom-target" onclick="triggerZoom(this)">
-        <h1 class="gradient-title">Make a Wish!!! 💖</h1>
-        <p class="subtext">Click the cake below to blow out the candles!!!</p>
+    <div class="kawaiiCard pinkGlow">
+        <h1 class="gradient-title" id="cakeHeaderTitle">Light the Candles!!! 🕯️💖</h1>
+        <p class="subtext" id="cakeInstructions">Click the cake below to light the birthday candles!!!</p>
         
-        <div class="cake-container" onclick="blowCandles(event)">
+        <div class="cake-container" onclick="handleCakeInteraction(event)">
             <div class="candles-row" id="candleFlames">
-                <span class="flame">🔥</span><span class="flame">🔥</span><span class="flame">🔥</span>
+                <span class="flame unlit">🕯️</span><span class="flame unlit">🕯️</span><span class="flame unlit">🕯️</span>
             </div>
-            <div class="cake-graphic">🎂✨</div>
+            <div class="cake-graphic" id="cakeVisual">🎂✨</div>
         </div>
         
         <p id="cakeStatusText" style="font-weight: bold; color: #ff4081; margin-top: 15px;"></p>
@@ -78,14 +79,14 @@
         <p class="subtext">Click on each picture to unlock my wishes for you!!! 🎀</p>
 
         <div class="photo-container-hamper">
-            <div class="photo-wrapper"><img src="images/photo1.jpg" class="photo-wish-btn zoom-target" id="picBtn1" onclick="openWishBox(1, event)" alt="Wish 1"><span class="badge">1</span></div>
-            <div class="photo-wrapper"><img src="images/photo2.jpg" class="photo-wish-btn zoom-target" id="picBtn2" onclick="openWishBox(2, event)" alt="Wish 2"><span class="badge">2</span></div>
-            <div class="photo-wrapper"><img src="images/photo3.jpg" class="photo-wish-btn zoom-target" id="picBtn3" onclick="openWishBox(3, event)" alt="Wish 3"><span class="badge">3</span></div>
-            <div class="photo-wrapper"><img src="images/photo4.jpg" class="photo-wish-btn zoom-target" id="picBtn4" onclick="openWishBox(4, event)" alt="Wish 4"><span class="badge">4</span></div>
-            <div class="photo-wrapper"><img src="images/photo5.jpg" class="photo-wish-btn zoom-target" id="picBtn5" onclick="openWishBox(5, event)" alt="Wish 5"><span class="badge">5</span></div>
+            <div class="photo-wrapper zoom-target" onclick="triggerZoom(this, event)"><img src="images/photo1.jpg" class="photo-wish-btn" id="picBtn1" onclick="openWishBox(1, event)" alt="Wish 1"><span class="badge">1</span></div>
+            <div class="photo-wrapper zoom-target" onclick="triggerZoom(this, event)"><img src="images/photo2.jpg" class="photo-wish-btn" id="picBtn2" onclick="openWishBox(2, event)" alt="Wish 2"><span class="badge">2</span></div>
+            <div class="photo-wrapper zoom-target" onclick="triggerZoom(this, event)"><img src="images/photo3.jpg" class="photo-wish-btn" id="picBtn3" onclick="openWishBox(3, event)" alt="Wish 3"><span class="badge">3</span></div>
+            <div class="photo-wrapper zoom-target" onclick="triggerZoom(this, event)"><img src="images/photo4.jpg" class="photo-wish-btn" id="picBtn4" onclick="openWishBox(4, event)" alt="Wish 4"><span class="badge">4</span></div>
+            <div class="photo-wrapper zoom-target" onclick="triggerZoom(this, event)"><img src="images/photo5.jpg" class="photo-wish-btn" id="picBtn5" onclick="openWishBox(5, event)" alt="Wish 5"><span class="badge">5</span></div>
         </div>
 
-        <div class="final-card-btn locked-state zoom-target" id="finalGiftSlot" onclick="openFinalWishBox(event)">
+        <div class="final-card-btn locked-state" id="finalGiftSlot" onclick="openFinalWishBox(event)">
             <div class="final-icon">🌟</div>
             <h3>Final Manifestation Card</h3>
             <p id="finalSlotSubtext">Locked until you tap all photos 🔒</p>
@@ -100,7 +101,7 @@
 
 <!-- DYNAMIC WISH POPUPS CONTAINER -->
 <div class="modal" id="wishModal" style="display:none;" onclick="closeModalBox()">
-    <div class="modalPopup zoom-target" onclick="event.stopPropagation(); triggerZoom(this);">
+    <div class="modalPopup zoom-target" onclick="event.stopPropagation(); triggerZoom(this, event);">
         <span onclick="closeModalBox()" class="modalCloseBtn">&times;</span>
         <div class="modal-decorations">🎉🧁🎈</div>
         <h1 id="modalTitle">Wish</h1>
