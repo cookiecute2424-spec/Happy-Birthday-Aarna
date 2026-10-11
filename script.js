@@ -21,7 +21,96 @@ const wishes = {
     5: "Come to me if u ever want cat cuddles 😝😋"
 };
 
-// SELECTIVE IMMERSIVE FILTER ENGINE FOR ZOOM INTERACTIONS
+// INITIALIZE CANVAS KEYPAD LAYOUT MATRIX
+window.addEventListener("DOMContentLoaded", () => {
+    drawCanvasKeypad();
+    setupCanvasClickEngine();
+});
+
+const buttonsLayout = [
+    { label: "1", x: 10, y: 10, w: 80, h: 80 },
+    { label: "2", x: 110, y: 10, w: 80, h: 80 },
+    { label: "3", x: 210, y: 10, w: 80, h: 80 },
+    { label: "4", x: 10, y: 110, w: 80, h: 80 },
+    { label: "5", x: 110, y: 110, w: 80, h: 80 },
+    { label: "6", x: 210, y: 110, w: 80, h: 80 },
+    { label: "7", x: 10, y: 210, w: 80, h: 80 },
+    { label: "8", x: 110, y: 210, w: 80, h: 80 },
+    { label: "9", x: 210, y: 210, w: 80, h: 80 },
+    { label: "CLR", x: 10, y: 310, w: 80, h: 80, special: "clr" },
+    { label: "0", x: 110, y: 310, w: 80, h: 80 },
+    { label: "⌫", x: 210, y: 310, w: 80, h: 80, special: "del" }
+];
+
+function drawCanvasKeypad() {
+    const canvas = document.getElementById("canvasKeypad");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    buttonsLayout.forEach(btn => {
+        // Render Button Backdrop
+        ctx.fillStyle = btn.special === "clr" ? "#ff758c" : (btn.special === "del" ? "#afb3c2" : "#ffffff");
+        ctx.beginPath();
+        ctx.roundRect(btn.x, btn.y, btn.w, btn.h, 18);
+        ctx.fill();
+
+        // Render Button Label
+        ctx.fillStyle = (btn.special === "clr" || btn.special === "del") ? "#ffffff" : "#ff5599";
+        ctx.font = "bold 24px Fredoka, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(btn.label, btn.x + btn.w/2, btn.y + btn.h/2);
+    });
+}
+
+function setupCanvasClickEngine() {
+    const canvas = document.getElementById("canvasKeypad");
+    if (!canvas) return;
+
+    function handleInteraction(clientX, clientY) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const clickX = (clientX - rect.left) * scaleX;
+        const clickY = (clientY - rect.top) * scaleY;
+
+        buttonsLayout.forEach(btn => {
+            if (clickX >= btn.x && clickX <= btn.x + btn.w && clickY >= btn.y && clickY <= btn.y + btn.h) {
+                processCanvasInput(btn.label);
+            }
+        });
+    }
+
+    canvas.addEventListener("click", (e) => {
+        e.preventDefault();
+        handleInteraction(e.clientX, e.clientY);
+    });
+
+    canvas.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        handleInteraction(touch.clientX, touch.clientY);
+    }, { passive: false });
+}
+
+function processCanvasInput(label) {
+    const display = document.getElementById("passwordDisplay");
+    if (display.innerText === "Enter PIN") display.innerText = "";
+
+    if (label === "CLR") {
+        enteredPin = "";
+        display.innerText = "Enter PIN";
+    } else if (label === "⌫") {
+        enteredPin = enteredPin.slice(0, -1);
+        display.innerText = enteredPin || "Enter PIN";
+    } else if (enteredPin.length < 4) {
+        enteredPin += (label === "0" ? "0" : label);
+        display.innerText = enteredPin;
+    }
+}
+
+// ZOOM MANAGER (RESTRICTED TO EXCLUDE CONTROLS FROM CANVAS INPUT ENTRIES)
 function triggerZoom(element, e) {
     if(e) e.stopPropagation();
     if (activeZoomElement && activeZoomElement !== element) {
@@ -38,24 +127,6 @@ document.addEventListener("click", () => {
     }
 });
 
-// ROBUST HARDWARE DIV PANEL CLICK EXTRACTIONS (BYPASSES MULTIPLE BROWSER INPUT GLITCHES)
-function pressKey(val) {
-    const display = document.getElementById("passwordDisplay");
-    if (display.innerText === "Enter PIN") display.innerText = "";
-
-    if (val === "CLR") {
-        enteredPin = "";
-        display.innerText = "Enter PIN";
-    } else if (val === "DEL") {
-        enteredPin = enteredPin.slice(0, -1);
-        display.innerText = enteredPin || "Enter PIN";
-    } else if (enteredPin.length < 4) {
-        enteredPin += val.toString(); // Secures index bounds for 0 values cleanly
-        display.innerText = enteredPin;
-    }
-}
-
-// VALIDATE PASSWORD AND STREAM MUSIC AUDIO
 function verifyPasscode(e) {
     if(e) e.stopPropagation();
     const errorText = document.getElementById("wrongPassword");
@@ -63,7 +134,7 @@ function verifyPasscode(e) {
     const audioTrack = document.getElementById("birthdayMusic");
 
     if (enteredPin === CORRECT_PIN) {
-        audioTrack.play().catch(err => console.log("Audio connection layer initialized safely", err));
+        audioTrack.play().catch(err => console.log("Audio contextual playback handled safely", err));
         document.getElementById("passwordPage").style.display = "none";
         document.getElementById("cakeStagePage").style.display = "block";
     } else {
@@ -73,7 +144,6 @@ function verifyPasscode(e) {
     }
 }
 
-// STAGED INTERACTIVE CAKE CUTTING AND PARTY CONFETTI SHOWER
 function handleCakeInteraction(e) {
     if(e) e.stopPropagation();
     const statusText = document.getElementById("cakeStatusText");
@@ -117,7 +187,6 @@ function triggerConfettiShower() {
     }
 }
 
-// CUTE REVEAL SEQUENCE FOR TEXT MESSAGES
 function revealMessagesSequentially() {
     const container = document.getElementById("dynamicMessageContainer");
     let currentIdx = 0;
@@ -145,7 +214,6 @@ function revealMessagesSequentially() {
     renderNextMessage();
 }
 
-// NAVIGATION FLOW CONTROLLERS
 function showHamperPage(e) {
     if(e) e.stopPropagation();
     document.getElementById("messageTimelinePage").style.display = "none";
