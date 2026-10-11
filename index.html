@@ -22,24 +22,24 @@
         
         <div id="passwordDisplay">Enter PIN</div>
 
-        <!-- Inline styled grid panel to completely bypass old css overlaps -->
-        <div id="keypad" style="display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 12px !important; max-width: 290px !important; margin: 0 auto 20px auto !important; pointer-events: auto !important;">
-            <button type="button" class="key" onclick="pressKey('1')">1</button>
-            <button type="button" class="key" onclick="pressKey('2')">2</button>
-            <button type="button" class="key" onclick="pressKey('3')">3</button>
-            <button type="button" class="key" onclick="pressKey('4')">4</button>
-            <button type="button" class="key" onclick="pressKey('5')">5</button>
-            <button type="button" class="key" onclick="pressKey('6')">6</button>
-            <button type="button" class="key" onclick="pressKey('7')">7</button>
-            <button type="button" class="key" onclick="pressKey('8')">8</button>
-            <button type="button" class="key" onclick="pressKey('9')">9</button>
-            <button type="button" class="key system-key clr-bg" onclick="pressKey('CLR')">CLR</button>
-            <button type="button" class="key" onclick="pressKey('0')">0</button>
-            <button type="button" class="key system-key del-bg" onclick="pressKey('DEL')">⌫</button>
+        <!-- Transformed into explicit touch-responsive division panels -->
+        <div id="keypad">
+            <div class="key" onclick="pressKey('1')">1</div>
+            <div class="key" onclick="pressKey('2')">2</div>
+            <div class="key" onclick="pressKey('3')">3</div>
+            <div class="key" onclick="pressKey('4')">4</div>
+            <div class="key" onclick="pressKey('5')">5</div>
+            <div class="key" onclick="pressKey('6')">6</div>
+            <div class="key" onclick="pressKey('7')">7</div>
+            <div class="key" onclick="pressKey('8')">8</div >
+            <div class="key" onclick="pressKey('9')">9</div>
+            <div class="key system-key clr-bg" onclick="pressKey('CLR')">CLR</div>
+            <div class="key" onclick="pressKey('0')">0</div>
+            <div class="key system-key del-bg" onclick="pressKey('DEL')">⌫</div>
         </div>
 
         <p class="hint-text" id="hintTextDisplay">Hint: Bday Date</p>
-        <button type="button" id="unlockBtn" class="actionBtn" onclick="verifyPasscode(event)">Unlock Surprise ✨</button>
+        <div id="unlockBtn" class="actionBtn" onclick="verifyPasscode(event)">Unlock Surprise ✨</div>
         <p id="wrongPassword"></p>
     </div>
 </section>
@@ -68,11 +68,11 @@
         
         <div id="dynamicMessageContainer"></div>
 
-        <button type="button" id="proceedToHamperBtn" class="actionBtn" style="display:none; margin-top: 20px;" onclick="showHamperPage(event)">Open My Hamper Box 🎁</button>
+        <div id="proceedToHamperBtn" class="actionBtn" style="display:none; margin-top: 20px;" onclick="showHamperPage(event)">Open My Hamper Box 🎁</div>
     </div>
 </section>
 
-<!-- STEP 4 & 5: PHOTO MATRIX HAMPER & WISH FLOW -->
+<!-- STEP 4 & 5: PHOTO MATRIX HAMPER & SEQUENTIAL WISH FLOW -->
 <section id="hamperPage" style="display:none;">
     <div class="kawaiiCard pinkGlow">
         <div class="card-icon">🎁✨</div>
