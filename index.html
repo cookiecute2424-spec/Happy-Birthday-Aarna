@@ -3,10 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Aarna </title>
+    <title>Happy Birthday Aarna</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://googleapis.com" rel="stylesheet">
     <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        /* Essential styling layout fixes to ensure visibility and clean photo button borders */
+        #passwordDisplay {
+            color: #ffffff !important;
+            font-size: 2.2rem !important;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px auto;
+            min-height: 50px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+        }
+        .key {
+            cursor: pointer !important;
+            color: #000000 !important;
+            font-weight: bold !important;
+            z-index: 10;
+        }
+        .photo-wish-btn {
+            width: 120px;
+            height: 120px;
+            margin: 10px;
+            border-radius: 15px;
+            border: 3px solid #fff;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .photo-wish-btn:hover {
+            transform: scale(1.05);
+        }
+        .photo-wish-btn.viewed {
+            border-color: #4CAF50;
+            opacity: 0.8;
+        }
+        .final-card-btn {
+            width: 100%;
+            max-width: 280px;
+            padding: 15px;
+            margin: 20px auto;
+            border-radius: 12px;
+            background: #ff4081;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: not-allowed;
+            opacity: 0.5;
+            text-align: center;
+        }
+        .final-card-btn.unlocked {
+            cursor: pointer !important;
+            opacity: 1 !important;
+            background: #e91e63 !important;
+            box-shadow: 0 4px 15px rgba(233,30,99,0.4);
+        }
+        .photo-container-hamper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
 
@@ -18,7 +81,7 @@
 <section id="passwordPage">
     <div class="passwordCard">
         <h1>Hii Aarna</h1>
-        <h2>Happy Birthday </h2>
+        <h2>Happy Birthday</h2>
         <p>Before I let you in... Can you prove you're the birthday girl!!! Enter the PIN below</p>
         
         <div id="passwordDisplay">Enter PIN</div>
@@ -30,55 +93,69 @@
             <button class="key clear">CLR</button><button class="key">0</button><button class="key delete">⌫</button>
         </div>
 
-        <p class="hint">Hint: It's a familiar date!!!</p>
+        <p class="hint" id="hintTextDisplay">Hint: Bday Date</p>
         <button id="unlockBtn">Unlock Surprise !!!</button>
-        <p id="wrongPassword"></p>
+        <p id="wrongPassword" style="color: #ff3333; font-weight: bold; margin-top: 10px;"></p>
     </div>
 </section>
 
 <!-- WELCOME PAGE -->
 <section id="welcomePage" style="display:none;">
     <div class="welcomeCard">
-        <h1>Happy Birthday <span>Aarna </span></h1>
+        <h1>Happy Birthday <span>Aarna</span></h1>
         
-        <!-- 5 SEPARATE MESSAGE BLOCKS -->
-        <div class="messageBlocks">
-            <p class="msg-block">Happy Birthday to the ultimate bi icon and absolute legend</p>
-            <p class="msg-block">Thanks for always teaching me everything 1min before the exams</p>
-            <p class="msg-block">Statistically and scientifically speaking you are the coolest person alive</p>
-            <p class="msg-block">Double the brains double the options and keeping it real in a hoodie</p>
-            <p class="msg-block">Have the best day ever buddy!!! Let's go make some actual noise</p>
+        <!-- 6 SEPARATE MESSAGE BLOCKS -->
+        <div class="messageBlocks" style="margin: 20px 0; text-align: left;">
+            <p class="msg-block" style="padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.1); border-radius: 5px;">I luv u sooooo much!!! Mwahhh 😜</p>
+            <p class="msg-block" style="padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.1); border-radius: 5px;">U bring so much happiness just by being yourself!!! 💖🎀</p>
+            <p class="msg-block" style="padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.1); border-radius: 5px;">On your birthday, I just want u to know how appreciated u are and how much u mean to me. 💖</p>
+            <p class="msg-block" style="padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.1); border-radius: 5px;">My book-reader, tomboy girlieee!! 💋💋</p>
+            <p class="msg-block" style="padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.1); border-radius: 5px;">Happy Birthday, Aarna! 🎉</p>
+            <p class="msg-block" style="padding: 8px; margin: 5px 0; background: rgba(255,255,255,0.1); border-radius: 5px;">Thanks for always teaching me everything 1min before the exam. 🙏🏼🙏🏼</p>
         </div>
 
         <button id="openHamper">Open My Birthday Hamper !!!</button>
     </div>
 </section>
 
-<!-- HAMPER PAGE (6 SEPARATE WISHES BARS) -->
+<!-- HAMPER PAGE (PICS INSTAD OF BOXES) -->
 <section id="hamperPage" style="display:none;">
     <h1>Birthday Hamper</h1>
-    <p>Click every wish bar to reveal the full content!!!</p>
+    <p>Click on each picture to unlock my wishes for you!!!</p>
 
-    <div class="hamper">
-        <div class="gift" onclick="openWish(1)"><h3>WISH #1</h3></div>
-        <div class="gift" onclick="openWish(2)"><h3>WISH #2</h3></div>
-        <div class="gift" onclick="openWish(3)"><h3>WISH #3</h3></div>
-        <div class="gift" onclick="openWish(4)"><h3>WISH #4</h3></div>
-        <div class="gift" onclick="openWish(5)"><h3>WISH #5</h3></div>
-        <div class="gift" onclick="openWish(6)"><h3>WISH #6</h3></div>
-        <div class="gift locked" id="finalGiftSlot" onclick="openFinalWish()">
-            <h3>Final Card</h3>
-            <p>Unlock after opening everything !!!</p>
-        </div>
+    <div class="photo-container-hamper">
+        <img src="images/photo1.jpg" class="photo-wish-btn" id="picBtn1" alt="Wish 1">
+        <img src="images/photo2.jpg" class="photo-wish-btn" id="picBtn2" alt="Wish 2">
+        <img src="images/photo3.jpg" class="photo-wish-btn" id="picBtn3" alt="Wish 3">
+        <img src="images/photo4.jpg" class="photo-wish-btn" id="picBtn4" alt="Wish 4">
+        <img src="images/photo5.jpg" class="photo-wish-btn" id="picBtn5" alt="Wish 5">
+    </div>
+
+    <div class="final-card-btn" id="finalGiftSlot">
+        <h3>Final Manifestation Card</h3>
+        <p>Unlock after tapping all photos !!!</p>
     </div>
 </section>
 
 <!-- AUDIO LOGIC -->
-<audio id="birthdayMusic" loop>
+<audio id="birthdayMusic" loop preload="auto">
     <source src="music/birthday.mp3" type="audio/mpeg">
 </audio>
 
-<!-- MODAL POPUP FOR DYNAMIC WISHES -->
+<!-- MODAL POPUP FOR WISHES -->
+<div class="modal" id="wishModal" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:100;">
+    <div class="popup birthdayCard" style="background:#fff; color:#000; padding: 25px; border-radius:15px; max-width:90%; width:400px; position:relative; text-align:center;">
+        <span class="close" id="modalCloseBtn" style="position:absolute; top:10px; right:15px; font-size:25px; cursor:pointer; font-weight:bold;">&times;</span>
+        <h1 id="modalTitle" style="margin-bottom:15px; color:#ff4081;">Wish</h1>
+        <p id="modalText" style="font-size:1.1rem; line-height:1.5;"></p>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+<!-- MODAL POPUP FOR WISHES -->
 <div class="modal" id="wishModal" style="display:none;">
     <div class="popup birthdayCard">
         <span class="close" onclick="closeModal()">&times;</span>
@@ -87,7 +164,7 @@
     </div>
 </div>
 
-<!-- MEMORY PAGE (5 PIC UPLOADER SLOTS) -->
+<!-- MEMORY PAGE -->
 <section id="memoryPage" style="display:none;">
     <h1>Little Memories </h1>
     <div class="photo-grid">
