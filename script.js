@@ -2,6 +2,7 @@ const CORRECT_PIN = "1110";
 let enteredPin = "";
 let openedWishes = new Set();
 let activeZoomElement = null;
+let cakeStep = 0; // 0 = unlit, 1 = lit, 2 = cut
 
 const messages = [
     "I luv u sooooo much!!! Mwahhh 😜",
@@ -20,8 +21,9 @@ const wishes = {
     5: "Come to me if u ever want cat cuddles 😝😋"
 };
 
-// RELIABLE INTERACTIVE ZOOM REGISTRATION FUNCTION
-function triggerZoom(element) {
+// EXCLUSIVE DIRECT ZOOM CONTROLLER FOR MESSAGES, PICS, AND WISH MODALS ONLY
+function triggerZoom(element, e) {
+    if(e) e.stopPropagation();
     if (activeZoomElement && activeZoomElement !== element) {
         activeZoomElement.classList.remove("zoom-active");
     }
@@ -29,14 +31,14 @@ function triggerZoom(element) {
     activeZoomElement = element.classList.contains("zoom-active") ? element : null;
 }
 
-// RESET ZOOM IF USER TAPS OUTSIDE ELEMENTS
-document.addEventListener("click", (e) => {
-    if (!e.target.classList.contains("zoom-target") && !e.target.closest(".zoom-target") && activeZoomElement) {
+document.addEventListener("click", () => {
+    if (activeZoomElement) {
         activeZoomElement.classList.remove("zoom-active");
         activeZoomElement = null;
     }
 });
 
+// ROBUST KEYPAD TRACKING FIXING THE 0 VALUE GLITCH
 function pressKey(val) {
     const display = document.getElementById("passwordDisplay");
     if (display.innerText === "Enter PIN") display.innerText = "";
@@ -48,12 +50,12 @@ function pressKey(val) {
         enteredPin = enteredPin.slice(0, -1);
         display.innerText = enteredPin || "Enter PIN";
     } else if (enteredPin.length < 4) {
-        enteredPin += val;
+        enteredPin += val.toString();
         display.innerText = enteredPin;
     }
 }
 
-// STAGE 1: PIN MATCH & MUSIC TRIGGER AT ENTRY
+// STAGE 1 & 2: VALIDATE PASSCODE AND START BACKGROUND TRACK MUSIC
 function verifyPasscode(e) {
     if(e) e.stopPropagation();
     const errorText = document.getElementById("wrongPassword");
@@ -61,7 +63,7 @@ function verifyPasscode(e) {
     const audioTrack = document.getElementById("birthdayMusic");
 
     if (enteredPin === CORRECT_PIN) {
-        audioTrack.play().catch(err => console.log("Audio pipeline loaded safely", err));
+        audioTrack.play().catch(err => console.log("Audio contextual trigger active", err));
         document.getElementById("passwordPage").style.display = "none";
         document.getElementById("cakeStagePage").style.display = "block";
     } else {
@@ -71,20 +73,53 @@ function verifyPasscode(e) {
     }
 }
 
-// STAGE 2: BLOWING OUT THE CAKE CANDLES
-function blowCandles(e) {
+// STAGE 3 & 4: STAGED CAKE SELECTION FLOW & REALTIME CONFETTI EXPLOSION GENERATOR
+function handleCakeInteraction(e) {
     if(e) e.stopPropagation();
-    document.getElementById("candleFlames").style.opacity = "0";
-    document.getElementById("cakeStatusText").innerText = "Candles blown!!! ✨ Sending you your cards...";
+    const statusText = document.getElementById("cakeStatusText");
+    const flames = document.getElementById("candleFlames");
     
-    setTimeout(() => {
-        document.getElementById("cakeStagePage").style.display = "none";
-        document.getElementById("messageTimelinePage").style.display = "block";
-        revealMessagesSequentially();
-    }, 2000);
+    if (cakeStep === 0) {
+        // Step A: Light Candles
+        flames.innerHTML = '<span class="flame lit">🔥</span><span class="flame lit">🔥</span><span class="flame lit">🔥</span>';
+        document.getElementById("cakeHeaderTitle").innerText = "Cut the Cake!!! 🍰✨";
+        document.getElementById("cakeInstructions").innerText = "Tap the cake box one more time to cut it!!!";
+        statusText.innerText = "Candles lit beautifully!!! 🔥";
+        cakeStep = 1;
+    } else if (cakeStep === 1) {
+        // Step B: Cut Cake & Run Confetti Flow
+        flames.style.opacity = "0";
+        document.getElementById("cakeVisual").innerText = "🍰✨🎉";
+        statusText.innerText = "Cake cut perfectly!!! 🥳 Deploying surprise text stream...";
+        cakeStep = 2;
+        
+        triggerConfettiShower();
+        
+        setTimeout(() => {
+            document.getElementById("cakeStagePage").style.display = "none";
+            document.getElementById("messageTimelinePage").style.display = "block";
+            revealMessagesSequentially();
+        }, 2200);
+    }
 }
 
-// STAGE 3: CUTE INCREMENTAL REVEAL STREAM FOR TEXT BLOCKS
+function triggerConfettiShower() {
+    const container = document.getElementById("confettiContainer");
+    const colors = ["#ff4081", "#ff69b4", "#ffb6c1", "#7b68ee", "#ffeb3b", "#4caf50", "#2196f3"];
+    
+    for (let i = 0; i < 80; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti-piece";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDuration = (Math.random() * 2 + 1.5) + "s";
+        piece.style.animationDelay = (Math.random() * 0.4) + "s";
+        piece.style.width = piece.style.height = (Math.random() * 8 + 6) + "px";
+        container.appendChild(piece);
+    }
+}
+
+// STAGE 5: DELAYED SLIDE REVEAL ENGINE FOR TEXT MESSAGES
 function revealMessagesSequentially() {
     const container = document.getElementById("dynamicMessageContainer");
     let currentIdx = 0;
@@ -95,17 +130,16 @@ function revealMessagesSequentially() {
             msgEl.className = "cute-reveal-msg zoom-target";
             msgEl.innerText = messages[currentIdx];
             
-            // Attaches zoom listening hooks to the message bubble on generation
             msgEl.onclick = function(e) {
                 e.stopPropagation();
-                triggerZoom(this);
+                triggerZoom(this, e);
             };
             
             container.appendChild(msgEl);
             setTimeout(() => msgEl.classList.add("visible"), 50);
             
             currentIdx++;
-            setTimeout(renderNextMessage, 1500);
+            setTimeout(renderNextMessage, 1400);
         } else {
             document.getElementById("proceedToHamperBtn").style.display = "block";
         }
@@ -113,14 +147,13 @@ function revealMessagesSequentially() {
     renderNextMessage();
 }
 
-// STAGE 4: PHOTO MATRIX NAVIGATION
+// STAGE 6: PHOTO HAMPER OPENINGS
 function showHamperPage(e) {
     if(e) e.stopPropagation();
     document.getElementById("messageTimelinePage").style.display = "none";
     document.getElementById("hamperPage").style.display = "block";
 }
 
-// STAGE 5: SEQUENTIAL POPUPS AND WISH VIEW LOGIC
 function openWishBox(id, e) {
     if(e) e.stopPropagation();
     openedWishes.add(id);
